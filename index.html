@@ -167,10 +167,59 @@
     <ul class="post-list">
     
         <li class="post-list-item fade">
+            <article id="post-Slf4j源码浅析" class="article-card article-type-post" itemprop="blogPost">
+
+    <div class="post-meta">
+        <time class="post-time" title="2019-05-31 01:03:50" datetime="2019-05-30T17:03:50.000Z" itemprop="datePublished">2019-05-31</time>
+
+        
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
+
+
+
+    </div>
+
+    
+
+
+  
+    <h3 class="post-title" itemprop="name">
+      <a class="post-title-link" href="/2019/05/31/Slf4j源码浅析/">Slf4j源码浅析</a>
+    </h3>
+  
+
+
+
+
+    <div class="post-content" id="post-content" itemprop="postContent">
+
+    
+        问题复现
+在项目中引入一个二方包后在后台日志诡异的不见了，于是使用
+mvn dependency:tree -l tree.txt
+输出依赖关系树，并定位到新引入的二方包部分,二方包引入了spring-boot-starter-logging其依赖了logback-classic与项目中的log4j产生了冲突，所以将前者排掉就项目就可以正常启动了，这个排包的过程不算难，那slf4j是如何实现绑定的呢？
+    
+
+        <a href="/2019/05/31/Slf4j源码浅析/" class="post-more waves-effect waves-button">
+            点击阅读全文…
+        </a>
+    </div>
+    
+    <div class="post-footer">
+        
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/slf4j/">slf4j</a></li></ul>
+
+    </div>
+    
+</article>
+
+        </li>
+    
+        <li class="post-list-item fade">
             <article id="post-hello-world" class="article-card article-type-post" itemprop="blogPost">
 
     <div class="post-meta">
-        <time class="post-time" title="2019-03-27 19:48:49" datetime="2019-03-27T11:48:49.000Z" itemprop="datePublished">2019-03-27</time>
+        <time class="post-time" title="2019-05-31 01:03:22" datetime="2019-05-30T17:03:22.000Z" itemprop="datePublished">2019-05-31</time>
 
         
 
@@ -182,7 +231,7 @@
 
   
     <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/03/27/hello-world/">Hello World</a>
+      <a class="post-title-link" href="/2019/05/31/hello-world/">Hello World</a>
     </h3>
   
 
@@ -196,7 +245,7 @@
 Qu...
     
 
-        <a href="/2019/03/27/hello-world/" class="post-more waves-effect waves-button">
+        <a href="/2019/05/31/hello-world/" class="post-more waves-effect waves-button">
             点击阅读全文…
         </a>
     </div>
