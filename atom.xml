@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://xiaoysec.github.io/"/>
-  <updated>2019-05-30T17:10:03.000Z</updated>
+  <updated>2019-06-19T15:39:12.000Z</updated>
   <id>https://xiaoysec.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>毕业感言</title>
+    <link href="https://xiaoysec.github.io/2019/06/19/%E6%AF%95%E4%B8%9A%E6%84%9F%E8%A8%80/"/>
+    <id>https://xiaoysec.github.io/2019/06/19/毕业感言/</id>
+    <published>2019-06-19T15:34:42.000Z</published>
+    <updated>2019-06-19T15:39:12.000Z</updated>
+    
+    <content type="html"><![CDATA[<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&amp;id=25706282&amp;auto=1&amp;height=66"></iframe>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;iframe frameborder=&quot;no&quot; border=&quot;0&quot; marginwidth=&quot;0&quot; marginheight=&quot;0&quot; width=&quot;330&quot; height=&quot;86&quot; src=&quot;//music.163.com/outchain/player?type=2&amp;amp
+      
+    
+    </summary>
+    
+      <category term="阶段总结" scheme="https://xiaoysec.github.io/categories/%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/"/>
+    
+    
+      <category term="阶段总结" scheme="https://xiaoysec.github.io/tags/%E9%98%B6%E6%AE%B5%E6%80%BB%E7%BB%93/"/>
+    
+  </entry>
   
   <entry>
     <title>Slf4j源码浅析</title>

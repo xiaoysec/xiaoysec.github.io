@@ -19,7 +19,7 @@
     
     
     
-    <title>西土城马戏团 | Think more Learn more</title>
+    <title>分类: 阶段总结 | 西土城马戏团 | Think more Learn more</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
@@ -28,7 +28,7 @@
     <meta name="keywords" content>
     <meta property="og:type" content="website">
 <meta property="og:title" content="西土城马戏团">
-<meta property="og:url" content="https://xiaoysec.github.io/index.html">
+<meta property="og:url" content="https://xiaoysec.github.io/categories/阶段总结/index.html">
 <meta property="og:site_name" content="西土城马戏团">
 <meta property="og:locale" content="zh-CN">
 <meta name="twitter:card" content="summary">
@@ -67,7 +67,7 @@
     <div class="scroll-wrap flex-col">
       <ul class="nav">
         
-            <li class="waves-block waves-effect active">
+            <li class="waves-block waves-effect">
               <a href="/">
                 <i class="icon icon-lg icon-home"></i>
                 主页
@@ -88,7 +88,7 @@
               </a>
             </li>
         
-            <li class="waves-block waves-effect">
+            <li class="waves-block waves-effect active">
               <a href="/categories">
                 <i class="icon icon-lg icon-th-list"></i>
                 分类
@@ -127,7 +127,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">西土城马戏团</div>
+        <div class="flex-col header-title ellipsis">分类: 阶段总结</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -146,39 +146,56 @@
         
     </div>
 </header>
-<header class="content-header index-header">
+<header class="content-header categories-header">
 
     <div class="container fade-scale">
-        <h1 class="title">西土城马戏团</h1>
+        <h1 class="title">分类: 阶段总结</h1>
         <h5 class="subtitle">
-            
-                Think more Learn more
             
         </h5>
     </div>
 
     
+<div class="tabs-bar container">
+    <nav class="tags-list">
+        <a href="/categories" style="-webkit-order:-1;order:-1" class="tags-list-item waves-effect waves-button waves-light
+            ">全部</a>
+        
+
+            <a href="/categories/Java/" style="-webkit-order:0;order:0" class="tags-list-item waves-effect waves-button waves-light">Java</a>
+
+        
+
+            <a href="/categories/阶段总结/" style="-webkit-order:1;order:1" class="tags-list-item waves-effect waves-button waves-light active">阶段总结</a>
+
+        
+    </nav>
+    <!-- PC show more-->
+    <div class="tags-list-more">
+        <a href="javascript:;" onclick="BLOG.tabBar(this)" class="action tags-list-item waves-effect waves-circle waves-light"><i class="icon icon-ellipsis-h"></i></a>
+    </div>
+</div>
+
 
 
 </header>
 
-<div class="container body-wrap">
-
-    <ul class="post-list">
+<div class="container body-wrap fade">
     
-        <li class="post-list-item fade">
-            <article id="post-毕业感言" class="article-card article-type-post" itemprop="blogPost">
+            <div class="waterfall">
+          
 
+            <div class="waterfall-item">
+  <article class="article-card archive-article">
     <div class="post-meta">
-        <time class="post-time" title="2019-06-19 23:34:42" datetime="2019-06-19T15:34:42.000Z" itemprop="datePublished">2019-06-19</time>
+      <time class="post-time" title="2019-06-19 23:34:42" datetime="2019-06-19T15:34:42.000Z" itemprop="datePublished">2019-06-19</time>
 
-        
+      
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/阶段总结/">阶段总结</a></li></ul>
 
 
 
     </div>
-
     
 
 
@@ -190,19 +207,6 @@
 
 
 
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        
-
-
-    
-
-        <a href="/2019/06/19/毕业感言/" class="post-more waves-effect waves-button">
-            点击阅读全文…
-        </a>
-    </div>
     
     <div class="post-footer">
         
@@ -210,103 +214,15 @@
 
     </div>
     
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-Slf4j源码浅析" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-05-31 01:03:50" datetime="2019-05-30T17:03:50.000Z" itemprop="datePublished">2019-05-31</time>
-
-        
-	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Java/">Java</a></li></ul>
-
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/31/Slf4j源码浅析/">Slf4j源码浅析</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        问题复现
-在项目中引入一个二方包后在后台日志诡异的不见了，于是使用
-mvn dependency:tree -l tree.txt
-输出依赖关系树，并定位到新引入的二方包部分,二方包引入了spring-boot-starter-logging其依赖了logback-classic与项目中的log4j产生了冲突，所以将前者排掉就项目就可以正常启动了，这个排包的过程不算难，那slf4j是如何实现绑定的呢？
-    
-
-        <a href="/2019/05/31/Slf4j源码浅析/" class="post-more waves-effect waves-button">
-            点击阅读全文…
-        </a>
-    </div>
-    
-    <div class="post-footer">
-        
-	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/slf4j/">slf4j</a></li></ul>
-
-    </div>
-    
-</article>
-
-        </li>
-    
-        <li class="post-list-item fade">
-            <article id="post-hello-world" class="article-card article-type-post" itemprop="blogPost">
-
-    <div class="post-meta">
-        <time class="post-time" title="2019-05-31 01:03:22" datetime="2019-05-30T17:03:22.000Z" itemprop="datePublished">2019-05-31</time>
-
-        
-
-
-    </div>
-
-    
-
-
-  
-    <h3 class="post-title" itemprop="name">
-      <a class="post-title-link" href="/2019/05/31/hello-world/">Hello World</a>
-    </h3>
-  
-
-
-
-
-    <div class="post-content" id="post-content" itemprop="postContent">
-
-    
-        Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Qu...
-    
-
-        <a href="/2019/05/31/hello-world/" class="post-more waves-effect waves-button">
-            点击阅读全文…
-        </a>
-    </div>
-    
-</article>
-
-        </li>
-    
-    </ul>
-
-    
-
+  </article>
 </div>
+
+        
+            </div>
+        
+    
+</div>
+
 
         <footer class="footer">
     <div class="top">
@@ -347,7 +263,7 @@ Qu...
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/&title=西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/categories/阶段总结/&title=西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -357,22 +273,22 @@ Qu...
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/&title=西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/categories/阶段总结/&title=西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/categories/阶段总结/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=西土城马戏团&url=https://xiaoysec.github.io/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=西土城马戏团&url=https://xiaoysec.github.io/categories/阶段总结/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/categories/阶段总结/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -383,7 +299,7 @@ Qu...
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAK4AAACuCAAAAACKZ2kyAAABw0lEQVR42u3awbICIQwEQP//p31XL+gkAZ5WNSdLV7bZA0Um+3jE4/l2vF6zun412+PEwMXFHXOrlPlsyfKWS8LFxb3IXd14tfXMv0keBy4u7m9xJ+jV/Li4uL/ITaZLCptLGxkuLu6YmxQ/SRTSW9KRWg0XF3fAzcOOc5+P5Lu4uLgt7nM8ettc8164uLhXuNVNJ2+dvg9BkkUutzxcXNwr3Dy8SH6tsqoxKy4u7h1uHlvMQ9UNTxQXF/cw9/3NegVPfigpH3FwcXH/iZuHm9Vv8sIp6gbj4uIe5vbKm17ZMzru4OLiXuFW4868vMlfsMhLMlxc3Dvc6qTVJsokbF0WP7i4uIe5+W43CVB6bZtCYxUXF3crNw8yJk2XZBlRQYWLi3uFu6ssyf9VvTKaCBcXdys3b4VWl1cNUKJDFS4u7hVudRuqtj16FdiHx4GLi3uY+yyOeZN1ErPi4uLe4U4CzSoxb5xsQOPi4o65vc2r+q/k10I4gouLe4WbBxNJOyRnNWs1XFzcr+Emx5dktvzYhIuL+/3cXhd37wsZuLi4N7mTMqb6Kka+XX5osuLi4h7jVifN26h5bLq5oYKLi9vn/gFHWN1EcthVwwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJ0lEQVR42u3aS27DMAwFwN7/0um2QBvhkVQKWBqvggS1OV6w/OjrK75eP6533//89ffn33+bP2XbhYGB8VjGa3mtw81/TdjJ92+pGBgYFzDeZbDe5ySIPFmvY8PAwMDoJc2koFzjMTAwMPYy1s1nr3DEwMDA6DWxvRFbr2X9YC+OgYHxQEY+df//zx/Zb2BgYDyKMRmHVdeZ6+BegwsDA+NsRp7gqmVZ9fjF/P4YGBinMpLx1nw9UC061zGU3xkGBsbDGdWRVmFMH6fsycGLP/5vYGBgHMfoFXC9VnbX/bfVoRgYGA9hzIu2PB1PBnnlMhEDA+M4Rq9x7eF3DewwMDDuYUwGbVF/PM76USmJgYFxNCNfKPaObU2WBHm5iYGBcTZjsrDM15m95FsY5GFgYFzDyNeW1TY1z/35ihQDA+M2Rj4OS1LwPImXMRgYGNcwqg+YFI6bj1lgYGAczUgCSgLNX1BSFFZXpBgYGLcxqjedHMLo3f/tszAwMC5g9AqyfHyfN8zN1QIGBsY1jGp5lwOqRyjKxzswMDAuYyQh9haZ1WVAoUDEwMA4lPEqXhtazThPFkZyGBgYRzOqzeq83U1CyUNvrjkxMDAeyPjc0YrqqK46/sPAwLiNUU1868f0DnBUVxEYGBgY1VVib2w3OcBRyN8YGBhXMuYdc558168DAwPjHkbemu4qCvPCMUrHGBgYRzN6rWPyyCT0JLhti0wMDIznMb4ByySyUKMnow4AAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
