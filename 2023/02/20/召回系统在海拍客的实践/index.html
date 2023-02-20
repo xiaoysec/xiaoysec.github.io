@@ -27,11 +27,11 @@
     <meta name="theme-color" content="#3F51B5">
     
     
-    <meta name="keywords" content="">
+    <meta name="keywords" content="推荐系统,系统设计,召回">
     <meta name="description" content="前言推荐系统通常可以分为召回、粗排、精排、重排四个阶段，召回主要是根据不同策略或模型从海量的物品库中快速筛选出一小部分用户可能感兴趣的物品，交由排序模型来精准地完成个性化排序，本文主要阐述召回在算法侧的工作原理以及召回系统工程侧落地实践。 召回算法目前算法团队在使用传统算法如 ItemCF、Swing 的基础上，也在不断尝试在召回中应用深度模型，下面章节介绍目前算法团队使用到的几种典型召回算法原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="召回系统在海拍客的实践">
-<meta property="og:url" content="https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:url" content="https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/index.html">
 <meta property="og:site_name" content="西土城马戏团">
 <meta property="og:description" content="前言推荐系统通常可以分为召回、粗排、精排、重排四个阶段，召回主要是根据不同策略或模型从海量的物品库中快速筛选出一小部分用户可能感兴趣的物品，交由排序模型来精准地完成个性化排序，本文主要阐述召回在算法侧的工作原理以及召回系统工程侧落地实践。 召回算法目前算法团队在使用传统算法如 ItemCF、Swing 的基础上，也在不断尝试在召回中应用深度模型，下面章节介绍目前算法团队使用到的几种典型召回算法原理">
 <meta property="og:locale" content="zh_CN">
@@ -47,8 +47,11 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663581291857-2e0bdd2c-2c05-4add-a7a7-a0555a278edc.png#clientId=uf8dc1a4a-4d79-4&errorMessage=unknown%20error&from=paste&height=129&id=u38d3a353&name=image.png&originHeight=258&originWidth=1120&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=37125&status=error&style=none&taskId=uf0ed5a22-4124-464a-a45f-beb74256d03&title=&width=560">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663581881117-a0f9fab6-a743-4a3a-bec5-ffdf0b2b1573.png#clientId=uf9e1d712-c452-4&errorMessage=unknown%20error&from=paste&height=164&id=uff5be3d6&name=image.png&originHeight=328&originWidth=574&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=48265&status=error&style=none&taskId=uafabf29a-09a3-4f34-9eaf-5aa5b87ff9e&title=&width=287">
 <meta property="article:published_time" content="2023-02-20T01:51:17.000Z">
-<meta property="article:modified_time" content="2023-02-20T04:44:10.961Z">
+<meta property="article:modified_time" content="2023-02-20T06:01:37.161Z">
 <meta property="article:author" content="xiaoysec">
+<meta property="article:tag" content="推荐系统">
+<meta property="article:tag" content="系统设计">
+<meta property="article:tag" content="召回">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663661246248-85986dd7-4309-4967-99cf-35d5e6176a69.png#averageHue=%23fdfdfd&clientId=u1a865019-c4d9-4&errorMessage=unknown%20error&from=paste&height=49&id=ueb35208d&name=image.png&originHeight=98&originWidth=272&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=9084&status=error&style=none&taskId=u192932e0-fba6-420e-8366-5d97a611ba6&title=&width=136">
     
@@ -168,6 +171,8 @@
 </time>
 
 
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a></li></ul>
+
             
         </h5>
     </div>
@@ -188,7 +193,7 @@
     </aside>
 
 
-<article id="post-yuque/召回系统在海拍客的实践"
+<article id="post-召回系统在海拍客的实践"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
@@ -197,6 +202,8 @@
             <time class="post-time" title="2023-02-20 09:51:17" datetime="2023-02-20T01:51:17.000Z"  itemprop="datePublished">2023-02-20</time>
 
             
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a></li></ul>
+
 
 
             
@@ -405,12 +412,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2023-02-20T04:44:10.961Z" itemprop="dateUpdated">2023-02-20 12:44:10</time>
+    最后更新时间：<time datetime="2023-02-20T06:01:37.161Z" itemprop="dateUpdated">2023-02-20 14:01:37</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/</a>
         
     </div>
     
@@ -431,6 +438,8 @@
 
         <div class="post-footer">
             
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8F%AC%E5%9B%9E/" rel="tag">召回</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li></ul>
+
 
             
 <div class="page-share-wrap">
@@ -439,7 +448,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -449,22 +458,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -489,9 +498,9 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/02/20/yuque/DataX%E5%85%A5%E9%97%A8/" id="post-next" class="post-nav-link">
+      <a href="/2019/05/31/Slf4j%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">DataX入门</h4>
+        <h4 class="title">Slf4j源码浅析</h4>
       </a>
     </div>
   
@@ -615,7 +624,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -625,22 +634,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -651,7 +660,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEi0lEQVR42u3aS24bMRAFQN//0g4QZJEAsfRet2QMx8WVINkcsiSA/eHHRzw+f4+v3nn8+u/xeP6v/mb29K9mfryS1cCECRMmTJdk+nw4Hm8++TQny1eSfBkJevJETJgwYcJ0D6ZkuuSQzrnbEGT2aR5MPJkfEyZMmDD9AKY2QW1zySQNzlPcNpTBhAkTJkyY2hJtu/l8/hx3FqBgwoQJE6b7MeWl1bzMukmb85JuW5h+ey0cEyZMmDBdjKktud7p9YsHJkyYMGG6GNPnaLQHc95WbNufbcgy2zUmTJgwYTqXaV9+TWZ4X5wy42hbm5gwYcKE6R5M+7wvL9rmaXbbvMz58udiwoQJE6ZzmfLjs7Yfbab9embXj+rdYcKECROmGzHlC82bnXlYkMyz7z+2RWFMmDBhwnQuU76ITTtztslk869Nj5/8dDBhwoQJ04FMeRDQtg/zOTdF2PZraNePCRMmTJjuxDQroe4T11mRd3avZpX0YsKECROmA5naay5tkpwsZfb0fdDwgiIvJkyYMGE6hGmT1s62utlAXvydFYufoGPChAkTpqOYZg2//PhvW4/vK9q2v5p//gsTJkyYMB3O9NqybH7wFwv9xve/qXqNCRMmTJi+kak91JNm5+ZCz6xh2TY1k5ACEyZMmDDdj2lzTScv9Sb/lbOuCJKyMiZMmDBhOpwp3/zjDbSb36fHs9EGNJgwYcKE6Vym5NjOQ4FXFXxnh/qmLRq1PzFhwoQJ0+FMm9R0j7sPOGbN2qIojAkTJkyYDmTKy7J5qTQ5ztsAYr+2lq+ISjBhwoQJ0yFM7SG9n2H2l7P0O09x/4OICRMmTJhuytQWQzcHc3t4t9terQcTJkyYMN2CqX0nmW2Tvs42/9pG6ZMiLyZMmDBhOoppkzq2DdH2YG7T79k1nS9/HJgwYcKE6XCm/JLNplz7ORqztmi+/uQLwIQJEyZM5zLti6FtSzJKNeMU96McecO1KPhiwoQJE6bLM71qewlfjjIrGb9jL5gwYcKE6VymWQI5CwX277Qtyc3VIkyYMGHCdA+mWZMyT4BnF32KfH0NWpR3MWHChAnT4Uz7Ymu+sTwUmCXA7+PDhAkTJkz3YNqXgJONtSXXWfG3xR22SzFhwoQJ0yWZZtdiklQ2v6gadVwXwUp7sbVuZ2LChAkTpkOY2gRylui2YUFehH3VLjBhwoQJ0/2Y2qM6b3YmIy/vtqHG7FLsx9ASEyZMmDBdnWm2ybzBOSuzztLgvHlZRC6YMGHChOlAplnzst3kjKBNj/dXcIpkHhMmTJgwHcK0OfjzhuIscW3P5SR5bln/vMaECRMmTMcybZLkGWvbwtxc02nbnC9LiTFhwoQJ08WYkq226WsbZOTPzcOLTXr/nxkwYcKECdPhTHnRc9aknJVfE6bVpZz8uZgwYcKE6ccw5QHBLH1tL+Xka2hnwIQJEyZMP42pTVaTdma+9HyGWSDyJMjAhAkTJkyHM7VF2OTiy6xpOktr31HwHdbCMWHChAnTxZjaomdbTs2T2JZylhK/oyiMCRMmTJguyfQLR4J2N2UmozoAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEj0lEQVR42u3aS24bMRAFQN//0gqQXZBIeq97jAzl4sqQZQ5ZY4Dsz9dXPB6/R/5J8vPff5s8ZbaqZA0XDEyYMGHCdEumx8uRby/ZarLtv78/2+TrNed7x4QJEyZMn8GUTPf6Me3m2/N3A9G+NkyYMGHC9DOZ8gO7DUqTZ+WsyS4wYcKECROmPFGbp2LbBGseiidXFkyYMGHC9JOZkuna47YNRzeBdL62b8+FY8KECROmmzG1pcFP+vnigQkTJkyYbsb0WIx9eJwf2PnLy9dZ7BQTJkyYMB3LlDffbBp6VsFkWcJsQ/HiooAJEyZMmA5kmqU+Z0nYPOzcb3X/Sp5eBTBhwoQJ07FMbZiabGnThDoLgGfcb1aFCRMmTJiOZdoEk3WEPdrYrACZt/UM94IJEyZMmA5hmh2Z373VTYtq3vyafB8TJkyYMH0qU86RBM+zNHH7+SysTUJ3TJgwYcJ0LlOb6p0FlpswOCfeN7MO+5swYcKECdOxTPlxvjloZ5tvi6NtMP+PeTBhwoQJ07FMUeC3WGIeGM/Syu0VJE86R/9TmDBhwoTpxkxt42lCmXx/0x40u4hsEsSYMGHChOlcplnat22FmZUqL2i4KV9Me13AhAkTJkz3Z9pM3Ya4bVlx9kraNqNoj5gwYcKE6XCmWatNW+Zsfzsri27S1k93hAkTJkyYPoLpqiLirLnnsqh9VMh844AJEyZMmI5lmi1idpDnfzs71DdR6rACjAkTJkyYDmdqm2zy9OusoWe2vU3zECZMmDBhOp0pScK2AXBesMwvEG2JNA9oo8sKJkyYMGE6nOmqg7M91PfP+o7Qva76YsKECROmGzNtyoSbRO1Vz501A+UJ4q9rl4sJEyZMmP4rUzLag3k2z6wNqP28bSTChAkTJkznMm2O8GHtNE7atgXL9olJehoTJkyYMH0SU36EzzbQjva5eUk1Xz8mTJgwYTqXqQ0g88N1lkhNkrazBO4qyYsJEyZMmD6CadZGswkj82LkrG2ovVI8nQETJkyYMB3LlKdr820kEXZeBG2vIO1v87AfEyZMmDCdyJQnWNuAdp8gnhU+W9BoBkyYMGHCdDhTvqxZcTGZrU3+zpqN8kvG1+xtYMKECROmWzK1Rc1NGTJ57r6cOUvpPp0BEyZMmDAdy7Q/gOtc8uhisbmOtCXYN1lwTJgwYcJ0FNOscae9RuStNvvS5qxE+gYdEyZMmDAdzpSHo/ukbU7cvqSrQvRhtRYTJkyYMN2eqU2tJiHlLDDOLxOzQmxepsWECRMmTKczJUD5dzbp17acOZstH29mw4QJEyZMhzA9yrG5LszSym1CNknsJmv4YzZMmDBhwnQs0+yAbOFmJcyrLhmbZ63uEZgwYcKE6TZM16Z021TvrIknX0Mb3j+9lGDChAkTpsOZ2rJiEqbuC4f7NczuRJgwYcKECdMshZrPvK/QtpeJN/SYMGHChOkHMF0V7u4z0MmrmmW7n34fEyZMmDAdzpQfmW0CN9lqe2xfFWAXa8aECRMmTMcy7cPLfTvO7CKSoL9+qReTYcKECROmezH9AlXiqNr/nJcwAAAAAElFTkSuQmCC" alt="微信分享二维码">
 </div>
 
 
