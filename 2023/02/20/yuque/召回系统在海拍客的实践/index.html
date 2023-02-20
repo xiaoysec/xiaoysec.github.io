@@ -31,7 +31,7 @@
     <meta name="description" content="前言推荐系统通常可以分为召回、粗排、精排、重排四个阶段，召回主要是根据不同策略或模型从海量的物品库中快速筛选出一小部分用户可能感兴趣的物品，交由排序模型来精准地完成个性化排序，本文主要阐述召回在算法侧的工作原理以及召回系统工程侧落地实践。 召回算法目前算法团队在使用传统算法如 ItemCF、Swing 的基础上，也在不断尝试在召回中应用深度模型，下面章节介绍目前算法团队使用到的几种典型召回算法原理">
 <meta property="og:type" content="article">
 <meta property="og:title" content="召回系统在海拍客的实践">
-<meta property="og:url" content="https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/index.html">
+<meta property="og:url" content="https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/index.html">
 <meta property="og:site_name" content="西土城马戏团">
 <meta property="og:description" content="前言推荐系统通常可以分为召回、粗排、精排、重排四个阶段，召回主要是根据不同策略或模型从海量的物品库中快速筛选出一小部分用户可能感兴趣的物品，交由排序模型来精准地完成个性化排序，本文主要阐述召回在算法侧的工作原理以及召回系统工程侧落地实践。 召回算法目前算法团队在使用传统算法如 ItemCF、Swing 的基础上，也在不断尝试在召回中应用深度模型，下面章节介绍目前算法团队使用到的几种典型召回算法原理">
 <meta property="og:locale" content="zh_CN">
@@ -39,15 +39,15 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663667505148-32c438b9-7845-4444-9351-3e9ac0896f76.png#averageHue=%23fefefe&clientId=u1a865019-c4d9-4&errorMessage=unknown%20error&from=paste&height=59&id=ub9a38d6c&name=image.png&originHeight=118&originWidth=390&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=13912&status=error&style=none&taskId=u49f5aca7-ca73-499c-b3f0-7099c0a7568&title=&width=195">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663726380287-57ad71b7-e41c-407d-9120-99d8c0bfc103.png#averageHue=%23f6f3ef&clientId=u64af37cf-697d-4&errorMessage=unknown%20error&from=paste&height=223&id=uee120e73&name=image.png&originHeight=446&originWidth=620&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=50763&status=error&style=none&taskId=u5af0c956-3620-4954-9a70-cf735f11181&title=&width=310">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663728033308-8e8a6c79-9d07-4906-819d-4abd0e7edc07.png#averageHue=%23ebe7e6&clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=286&id=u9c3ae0f5&name=image.png&originHeight=778&originWidth=1272&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=264570&status=error&style=none&taskId=u361b075d-ea1c-42c4-a621-1bda5372a6c&title=&width=468">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663742524019-74c044e7-297f-4e4b-9a3f-f5d674f81416.png#clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=302&id=ub3125e5f&name=image.png&originHeight=604&originWidth=1384&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=229557&status=error&style=none&taskId=ua67dd4fe-016d-4bae-8f34-c560488337f&title=&width=692">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663743688452-2b954c60-87eb-4756-a927-ca60d7a1b95b.png#clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=300&id=uad622a3e&name=image.png&originHeight=600&originWidth=1050&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=139115&status=error&style=none&taskId=u7d6151f7-1802-4032-9a60-64e334ea57e&title=&width=525">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663571312034-ded7f947-3754-486c-9a24-a0d2a402596f.png#clientId=u316e915d-4b09-4&errorMessage=unknown%20error&from=paste&height=249&id=u4f5cc20a&name=image.png&originHeight=498&originWidth=1078&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=71706&status=error&style=none&taskId=ueaa4c8f2-a1b7-4b42-8949-8a66b56fdc7&title=&width=539">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663742524019-74c044e7-297f-4e4b-9a3f-f5d674f81416.png#averageHue=%23f8e1dc&clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=302&id=ub3125e5f&name=image.png&originHeight=604&originWidth=1384&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=229557&status=error&style=none&taskId=ua67dd4fe-016d-4bae-8f34-c560488337f&title=&width=692">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663743688452-2b954c60-87eb-4756-a927-ca60d7a1b95b.png#averageHue=%23f9f8f7&clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=300&id=uad622a3e&name=image.png&originHeight=600&originWidth=1050&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=139115&status=error&style=none&taskId=u7d6151f7-1802-4032-9a60-64e334ea57e&title=&width=525">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663571312034-ded7f947-3754-486c-9a24-a0d2a402596f.png#averageHue=%23f6f0ea&clientId=u316e915d-4b09-4&errorMessage=unknown%20error&from=paste&height=249&id=u4f5cc20a&name=image.png&originHeight=498&originWidth=1078&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=71706&status=error&style=none&taskId=ueaa4c8f2-a1b7-4b42-8949-8a66b56fdc7&title=&width=539">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663577306023-68deca3d-a3c5-48a4-9fd7-6b325cf46c7f.png#clientId=uf8dc1a4a-4d79-4&errorMessage=unknown%20error&from=paste&height=428&id=ub055a9f0&name=image.png&originHeight=856&originWidth=1404&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=140359&status=error&style=none&taskId=u8f1b9855-4135-423d-956a-da6c52699d9&title=&width=702">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663604893265-445d2e42-3c84-493c-ad81-0fa1c48aa931.png#clientId=uf9e1d712-c452-4&errorMessage=unknown%20error&from=paste&height=508&id=u97dbafdc&name=image.png&originHeight=1016&originWidth=1284&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=190882&status=error&style=none&taskId=u1c05f6db-6317-4f29-8729-4593f561367&title=&width=642">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663581291857-2e0bdd2c-2c05-4add-a7a7-a0555a278edc.png#clientId=uf8dc1a4a-4d79-4&errorMessage=unknown%20error&from=paste&height=129&id=u38d3a353&name=image.png&originHeight=258&originWidth=1120&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=37125&status=error&style=none&taskId=uf0ed5a22-4124-464a-a45f-beb74256d03&title=&width=560">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663581881117-a0f9fab6-a743-4a3a-bec5-ffdf0b2b1573.png#clientId=uf9e1d712-c452-4&errorMessage=unknown%20error&from=paste&height=164&id=uff5be3d6&name=image.png&originHeight=328&originWidth=574&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=48265&status=error&style=none&taskId=uafabf29a-09a3-4f34-9eaf-5aa5b87ff9e&title=&width=287">
 <meta property="article:published_time" content="2023-02-20T01:51:17.000Z">
-<meta property="article:modified_time" content="2023-02-20T01:56:20.973Z">
+<meta property="article:modified_time" content="2023-02-20T04:44:10.961Z">
 <meta property="article:author" content="xiaoysec">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663661246248-85986dd7-4309-4967-99cf-35d5e6176a69.png#averageHue=%23fdfdfd&clientId=u1a865019-c4d9-4&errorMessage=unknown%20error&from=paste&height=49&id=ueb35208d&name=image.png&originHeight=98&originWidth=272&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=9084&status=error&style=none&taskId=u192932e0-fba6-420e-8366-5d97a611ba6&title=&width=136">
@@ -188,7 +188,7 @@
     </aside>
 
 
-<article id="post-yuque/tnro7ekghmfx200c"
+<article id="post-yuque/召回系统在海拍客的实践"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
@@ -235,53 +235,35 @@
 <table>
 <thead>
 <tr>
-<th></th>
-<th>商品 a</th>
-<th>商品 b</th>
-<th>商品 c</th>
-<th>商品 d</th>
+<th align="center"></th>
+<th align="center">商品a</th>
+<th align="center">商品 b</th>
+<th align="center">商品 c</th>
+<th align="center">商品 d</th>
 </tr>
 </thead>
 <tbody><tr>
-<td>用户 A</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td align="center">用户A</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="center">用户B</td>
+<td align="center"></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+<td align="center">✅</td>
+</tr>
+<tr>
+<td align="center">用户C</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">✅</td>
+<td align="center">✅</td>
 </tr>
 </tbody></table>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>| |<br>| 用户 B |<br>|</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|<br>| 用户 C | | |</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|</p>
-<ul>
-<li>[x]</li>
-</ul>
-<p>|</p>
 <p>那么根据上述的相似度计算公式可以得到<br>ab 相似度为 0.71 ，ac 相似度为 0.58，bc 相似度为 0.82，cd 相似度为 0.82<br>我们人为假定某个用户对商品 a 有购买行为兴趣度为 10，对 b 商品有点击行为兴趣度为 5，那么我们可以得到<br>该用户对商品 c 的兴趣度为 10 _ 0.58 + 5 _ 0.82 &#x3D; 9.9，对 d 的兴趣度为 0 ，因此可以给该用户推荐商品 c</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
@@ -303,7 +285,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663742524019-74c044e7-297f-4e4b-9a3f-f5d674f81416.png#clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=302&id=ub3125e5f&name=image.png&originHeight=604&originWidth=1384&originalType=binary∶=1&rotation=0&showTitle=false&size=229557&status=error&style=none&taskId=ua67dd4fe-016d-4bae-8f34-c560488337f&title=&width=692" alt="image.png" title="">
+                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663742524019-74c044e7-297f-4e4b-9a3f-f5d674f81416.png#averageHue=%23f8e1dc&clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=302&id=ub3125e5f&name=image.png&originHeight=604&originWidth=1384&originalType=binary∶=1&rotation=0&showTitle=false&size=229557&status=error&style=none&taskId=ua67dd4fe-016d-4bae-8f34-c560488337f&title=&width=692" alt="image.png" title="">
                 </div>
                 <div class="image-caption">image.png</div>
             </figure>
@@ -312,7 +294,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663743688452-2b954c60-87eb-4756-a927-ca60d7a1b95b.png#clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=300&id=uad622a3e&name=image.png&originHeight=600&originWidth=1050&originalType=binary∶=1&rotation=0&showTitle=false&size=139115&status=error&style=none&taskId=u7d6151f7-1802-4032-9a60-64e334ea57e&title=&width=525" alt="image.png" title="">
+                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663743688452-2b954c60-87eb-4756-a927-ca60d7a1b95b.png#averageHue=%23f9f8f7&clientId=u50249bee-aba3-4&errorMessage=unknown%20error&from=paste&height=300&id=uad622a3e&name=image.png&originHeight=600&originWidth=1050&originalType=binary∶=1&rotation=0&showTitle=false&size=139115&status=error&style=none&taskId=u7d6151f7-1802-4032-9a60-64e334ea57e&title=&width=525" alt="image.png" title="">
                 </div>
                 <div class="image-caption">image.png</div>
             </figure>
@@ -322,7 +304,7 @@
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663571312034-ded7f947-3754-486c-9a24-a0d2a402596f.png#clientId=u316e915d-4b09-4&errorMessage=unknown%20error&from=paste&height=249&id=u4f5cc20a&name=image.png&originHeight=498&originWidth=1078&originalType=binary∶=1&rotation=0&showTitle=false&size=71706&status=error&style=none&taskId=ueaa4c8f2-a1b7-4b42-8949-8a66b56fdc7&title=&width=539" alt="image.png" title="">
+                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1663571312034-ded7f947-3754-486c-9a24-a0d2a402596f.png#averageHue=%23f6f0ea&clientId=u316e915d-4b09-4&errorMessage=unknown%20error&from=paste&height=249&id=u4f5cc20a&name=image.png&originHeight=498&originWidth=1078&originalType=binary∶=1&rotation=0&showTitle=false&size=71706&status=error&style=none&taskId=ueaa4c8f2-a1b7-4b42-8949-8a66b56fdc7&title=&width=539" alt="image.png" title="">
                 </div>
                 <div class="image-caption">image.png</div>
             </figure>
@@ -423,12 +405,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2023-02-20T01:56:20.973Z" itemprop="dateUpdated">2023-02-20 09:56:20</time>
+    最后更新时间：<time datetime="2023-02-20T04:44:10.961Z" itemprop="dateUpdated">2023-02-20 12:44:10</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/20/yuque/tnro7ekghmfx200c/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/</a>
         
     </div>
     
@@ -457,7 +439,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -467,22 +449,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -507,7 +489,7 @@
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/02/20/yuque/vlbuedodq51kv4gd/" id="post-next" class="post-nav-link">
+      <a href="/2023/02/20/yuque/DataX%E5%85%A5%E9%97%A8/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
         <h4 class="title">DataX入门</h4>
       </a>
@@ -633,7 +615,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -643,22 +625,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&title=《召回系统在海拍客的实践》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《召回系统在海拍客的实践》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/yuque/tnro7ekghmfx200c/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/yuque/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -669,7 +651,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLUlEQVR42u3aQXLjMAwEwPz/097rXszMENqtEtk8uWxFUvOAgAB+fuL1+Wt9+3V9/be/zZ/ywMLAwHgt47Nc62vWr7i+z/od8nfDwMC4h7EOo/mrtIz1puQhHgMDA2MSXtuNwMDAwJgzkvD6Sxq3fAoGBgbG5BD7FG9+eMbAwLiNkVfd///nf9LfwMDAeBXjU66kZDYJkZ+thYGBcTZjPgaRfJM0QdthCwwMjHsYSSEsefDegFc7ihHlrRgYGMcxJqTJRiTJ5V4TFAMD4zxGclEeFttX39xvDAyM6xn5YETya7417bEZAwPjTkZe9M+/n3dWIzYGBsaVjDxpa4txbXku2iAMDIyjGXujEsnnvcbn6IiLgYFxAaNIxbYaluuMrqX+0tnAwMA4mpE8oA3TeZFu/ax6zAIDA+MIRn5EzMtteVDOE9B62AIDA+MgRjvO1Zbh2u2o/1e0XQUMDIyXM/KguXegbducD6SJGBgYBzHmKeBk5GLvmqJqiIGBcRwjPyLmvPYQuzcCgoGBcQMjL4TtFdT22gzFQRcDA+MaRlsyawPlXpuzOMRiYGAcx5gPTMzHLPJjc5QUYmBgHMeYNDXnQ2ZtAa4etsDAwDiIMUkN99qTT23ZYxkuBgbGSxht4Js3OyeH2K8BFwMDA6NsBqzvkB9xo8CNgYGBEQfWNonM7/lLmMbAwLiA0Y475NcnyWJ+zwfKbRgYGC9ktLWseRmubTA81sjEwMB4H+MPRX0ZBnUKOyYAAAAASUVORK5CYII=" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASYAAAEmCAAAAADqr2IGAAAEi0lEQVR42u3aS24bMRAFQN//0g4QZJEAsfRet2QMx8WVINkcsiSA/eHHRzw+f4+v3nn8+u/xeP6v/mb29K9mfryS1cCECRMmTJdk+nw4Hm8++TQny1eSfBkJevJETJgwYcJ0D6ZkuuSQzrnbEGT2aR5MPJkfEyZMmDD9AKY2QW1zySQNzlPcNpTBhAkTJkyY2hJtu/l8/hx3FqBgwoQJE6b7MeWl1bzMukmb85JuW5h+ey0cEyZMmDBdjKktud7p9YsHJkyYMGG6GNPnaLQHc95WbNufbcgy2zUmTJgwYTqXaV9+TWZ4X5wy42hbm5gwYcKE6R5M+7wvL9rmaXbbvMz58udiwoQJE6ZzmfLjs7Yfbab9embXj+rdYcKECROmGzHlC82bnXlYkMyz7z+2RWFMmDBhwnQuU76ITTtztslk869Nj5/8dDBhwoQJ04FMeRDQtg/zOTdF2PZraNePCRMmTJjuxDQroe4T11mRd3avZpX0YsKECROmA5naay5tkpwsZfb0fdDwgiIvJkyYMGE6hGmT1s62utlAXvydFYufoGPChAkTpqOYZg2//PhvW4/vK9q2v5p//gsTJkyYMB3O9NqybH7wFwv9xve/qXqNCRMmTJi+kak91JNm5+ZCz6xh2TY1k5ACEyZMmDDdj2lzTScv9Sb/lbOuCJKyMiZMmDBhOpwp3/zjDbSb36fHs9EGNJgwYcKE6Vym5NjOQ4FXFXxnh/qmLRq1PzFhwoQJ0+FMm9R0j7sPOGbN2qIojAkTJkyYDmTKy7J5qTQ5ztsAYr+2lq+ISjBhwoQJ0yFM7SG9n2H2l7P0O09x/4OICRMmTJhuytQWQzcHc3t4t9terQcTJkyYMN2CqX0nmW2Tvs42/9pG6ZMiLyZMmDBhOoppkzq2DdH2YG7T79k1nS9/HJgwYcKE6XCm/JLNplz7ORqztmi+/uQLwIQJEyZM5zLti6FtSzJKNeMU96McecO1KPhiwoQJE6bLM71qewlfjjIrGb9jL5gwYcKE6VymWQI5CwX277Qtyc3VIkyYMGHCdA+mWZMyT4BnF32KfH0NWpR3MWHChAnT4Uz7Ymu+sTwUmCXA7+PDhAkTJkz3YNqXgJONtSXXWfG3xR22SzFhwoQJ0yWZZtdiklQ2v6gadVwXwUp7sbVuZ2LChAkTpkOY2gRylui2YUFehH3VLjBhwoQJ0/2Y2qM6b3YmIy/vtqHG7FLsx9ASEyZMmDBdnWm2ybzBOSuzztLgvHlZRC6YMGHChOlAplnzst3kjKBNj/dXcIpkHhMmTJgwHcK0OfjzhuIscW3P5SR5bln/vMaECRMmTMcybZLkGWvbwtxc02nbnC9LiTFhwoQJ08WYkq226WsbZOTPzcOLTXr/nxkwYcKECdPhTHnRc9aknJVfE6bVpZz8uZgwYcKE6ccw5QHBLH1tL+Xka2hnwIQJEyZMP42pTVaTdma+9HyGWSDyJMjAhAkTJkyHM7VF2OTiy6xpOktr31HwHdbCMWHChAnTxZjaomdbTs2T2JZylhK/oyiMCRMmTJguyfQLR4J2N2UmozoAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 

@@ -21,27 +21,27 @@
     
     
     
-    <title>Dubbo SPI | 西土城马戏团 | Keep Listening Keep Thinking</title>
+    <title>反射 | 西土城马戏团 | Keep Listening Keep Thinking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
-    <meta name="description" content="Java SPI 机制实例演示Java 中 SPI 机制使用 ServiceLoader 实现，定义接口的实现，在 classpath resources 文件夹下创建 META-INF&#x2F;services 文件夹，以接口名称为文件名创建文件，输入接口实现类的类名">
+    <meta name="description" content="getType 返回类型是 Class （Class 是 Type 的子类）。 返回值无泛型信息   getGenericType 返回类型是 Type 若 Field 涉及到泛型，返回结果中有泛型信息                                                                                                 i">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dubbo SPI">
-<meta property="og:url" content="https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/index.html">
+<meta property="og:title" content="反射">
+<meta property="og:url" content="https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/index.html">
 <meta property="og:site_name" content="西土城马戏团">
-<meta property="og:description" content="Java SPI 机制实例演示Java 中 SPI 机制使用 ServiceLoader 实现，定义接口的实现，在 classpath resources 文件夹下创建 META-INF&#x2F;services 文件夹，以接口名称为文件名创建文件，输入接口实现类的类名">
+<meta property="og:description" content="getType 返回类型是 Class （Class 是 Type 的子类）。 返回值无泛型信息   getGenericType 返回类型是 Type 若 Field 涉及到泛型，返回结果中有泛型信息                                                                                                 i">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1652341569573-940827d0-faa4-4ca3-b683-22588086c557.png#clientId=u12ac2c08-1b3c-4&from=paste&height=408&id=ueec426f1&name=image.png&originHeight=816&originWidth=1350&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=117756&status=done&style=none&taskId=ue3f3ce15-125e-4862-9f2a-ea944b677d2&title=&width=675">
-<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1652341829570-935587ff-84a4-4347-bc4f-663b10a9e53f.png#clientId=u12ac2c08-1b3c-4&from=paste&height=585&id=u1a0ac2c6&name=image.png&originHeight=1170&originWidth=1164&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=77864&status=done&style=none&taskId=u6f04833f-476c-43b4-b3c8-ff62bf7a0ca&title=&width=582">
-<meta property="article:published_time" content="2022-05-12T07:41:54.000Z">
-<meta property="article:modified_time" content="2023-02-20T01:56:20.974Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676340768833-a2cb5cfe-62fc-4897-b0bf-849750c8e387.png#averageHue=%23333231&clientId=u1b53e28c-27c1-4&from=paste&height=252&id=uf47ef11b&name=image.png&originHeight=504&originWidth=838&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=79071&status=done&style=none&taskId=u8d4ffb7c-8f75-4091-b2d6-6d4ad881f55&title=&width=419">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676340880019-91a14365-ac01-4ba5-a4bb-a29b2d0489de.png#averageHue=%232c2c2c&clientId=u1b53e28c-27c1-4&from=paste&height=815&id=u660ffa1a&name=image.png&originHeight=1630&originWidth=1238&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=229663&status=done&style=none&taskId=u2dea5415-7b97-4dc6-893e-ae7a6d562b2&title=&width=619">
+<meta property="article:published_time" content="2023-02-13T03:43:23.000Z">
+<meta property="article:modified_time" content="2023-02-20T04:42:56.350Z">
 <meta property="article:author" content="xiaoysec">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2022/png/21378486/1652341569573-940827d0-faa4-4ca3-b683-22588086c557.png#clientId=u12ac2c08-1b3c-4&from=paste&height=408&id=ueec426f1&name=image.png&originHeight=816&originWidth=1350&originalType=binary%E2%88%B6=1&rotation=0&showTitle=false&size=117756&status=done&style=none&taskId=ue3f3ce15-125e-4862-9f2a-ea944b677d2&title=&width=675">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676340768833-a2cb5cfe-62fc-4897-b0bf-849750c8e387.png#averageHue=%23333231&clientId=u1b53e28c-27c1-4&from=paste&height=252&id=uf47ef11b&name=image.png&originHeight=504&originWidth=838&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=79071&status=done&style=none&taskId=u8d4ffb7c-8f75-4091-b2d6-6d4ad881f55&title=&width=419">
     
         <link rel="alternate" type="application/atom+xml" title="西土城马戏团" href="/atom.xml">
     
@@ -129,7 +129,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">Dubbo SPI</div>
+        <div class="flex-col header-title ellipsis">反射</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -151,11 +151,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">Dubbo SPI</h1>
+        <h1 class="title">反射</h1>
         <h5 class="subtitle">
             
-                <time datetime="2022-05-12T07:41:54.000Z" itemprop="datePublished" class="page-time">
-  2022-05-12
+                <time datetime="2023-02-13T03:43:23.000Z" itemprop="datePublished" class="page-time">
+  2023-02-13
 </time>
 
 
@@ -171,21 +171,14 @@
 
 <div class="container body-wrap">
     
-    <aside class="post-widget">
-        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
-            <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Java-SPI-机制"><span class="post-toc-number">1.</span> <span class="post-toc-text">Java SPI 机制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实例演示"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">实例演示</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#实现原理"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">实现原理</span></a></li></ol></li></ol>
-        </nav>
-    </aside>
 
-
-<article id="post-yuque/apgq6m"
+<article id="post-yuque/反射"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">Dubbo SPI</h1>
+        <h1 class="post-card-title">反射</h1>
         <div class="post-meta">
-            <time class="post-time" title="2022-05-12 15:41:54" datetime="2022-05-12T07:41:54.000Z"  itemprop="datePublished">2022-05-12</time>
+            <time class="post-time" title="2023-02-13 11:43:23" datetime="2023-02-13T03:43:23.000Z"  itemprop="datePublished">2023-02-13</time>
 
             
 
@@ -198,31 +191,35 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            <h3 id="Java-SPI-机制"><a href="#Java-SPI-机制" class="headerlink" title="Java SPI 机制"></a>Java SPI 机制</h3><h4 id="实例演示"><a href="#实例演示" class="headerlink" title="实例演示"></a>实例演示</h4><p>Java 中 SPI 机制使用 ServiceLoader 实现，定义接口的实现，在 classpath resources 文件夹下创建 META-INF&#x2F;services 文件夹，以接口名称为文件名创建文件，输入接口实现类的类名</p>
+            <ul>
+<li>getType<ul>
+<li>返回类型是 Class （Class 是 Type 的子类）。</li>
+<li>返回值无泛型信息</li>
+</ul>
+</li>
+<li>getGenericType<ul>
+<li>返回类型是 Type</li>
+<li>若 Field 涉及到泛型，返回结果中有泛型信息</li>
+</ul>
+</li>
+</ul>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1652341569573-940827d0-faa4-4ca3-b683-22588086c557.png#clientId=u12ac2c08-1b3c-4&from=paste&height=408&id=ueec426f1&name=image.png&originHeight=816&originWidth=1350&originalType=binary∶=1&rotation=0&showTitle=false&size=117756&status=done&style=none&taskId=ue3f3ce15-125e-4862-9f2a-ea944b677d2&title=&width=675" alt="image.png" title="">
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676340768833-a2cb5cfe-62fc-4897-b0bf-849750c8e387.png#averageHue=%23333231&clientId=u1b53e28c-27c1-4&from=paste&height=252&id=uf47ef11b&name=image.png&originHeight=504&originWidth=838&originalType=binary∶=2&rotation=0&showTitle=false&size=79071&status=done&style=none&taskId=u8d4ffb7c-8f75-4091-b2d6-6d4ad881f55&title=&width=419" alt="image.png" title="">
                 </div>
                 <div class="image-caption">image.png</div>
             </figure>
 
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        ServiceLoader&lt;Log&gt; serviceLoader =</span><br><span class="line"></span><br><span class="line">                ServiceLoader.load(Log<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line"></span><br><span class="line">        Iterator&lt;Log&gt; iterator = serviceLoader.iterator();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span> (iterator.hasNext()) &#123;</span><br><span class="line"></span><br><span class="line">            Log log = iterator.next();</span><br><span class="line"></span><br><span class="line">            log.log(<span class="string">"JDK SPI"</span>);</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出如下:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Log4j:JDK SPI</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Logback:JDK SPI</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h4><p>调用方法 java.util.ServiceLoader#load(java.lang.Class<S>)</p>
-<ol>
-<li>获取当前线程的 classLoader，调用 java.util.ServiceLoader#load(java.lang.Class<S>, java.lang.ClassLoader)</li>
-<li>创建 ServiceLoder 对象，调用 java.util.ServiceLoader#reload</li>
-<li>清空 providers，providers 为存储接口实现类的 map</li>
-</ol>
-<p> </p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
-                    <img src="https://cdn.nlark.com/yuque/0/2022/png/21378486/1652341829570-935587ff-84a4-4347-bc4f-663b10a9e53f.png#clientId=u12ac2c08-1b3c-4&from=paste&height=585&id=u1a0ac2c6&name=image.png&originHeight=1170&originWidth=1164&originalType=binary∶=1&rotation=0&showTitle=false&size=77864&status=done&style=none&taskId=u6f04833f-476c-43b4-b3c8-ff62bf7a0ca&title=&width=582" alt="image.png" title="">
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676340880019-91a14365-ac01-4ba5-a4bb-a29b2d0489de.png#averageHue=%232c2c2c&clientId=u1b53e28c-27c1-4&from=paste&height=815&id=u660ffa1a&name=image.png&originHeight=1630&originWidth=1238&originalType=binary∶=2&rotation=0&showTitle=false&size=229663&status=done&style=none&taskId=u2dea5415-7b97-4dc6-893e-ae7a6d562b2&title=&width=619" alt="image.png" title="">
                 </div>
                 <div class="image-caption">image.png</div>
             </figure>
+<p><a href="https://www.letianbiji.com/java-reflection-generics/java-Field-getType-getGenericType.html" target="_blank" rel="noopener">https://www.letianbiji.com/java-reflection-generics/java-Field-getType-getGenericType.html</a></p>
+<hr>
 
         </div>
 
@@ -231,12 +228,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2023-02-20T01:56:20.974Z" itemprop="dateUpdated">2023-02-20 09:56:20</time>
+    最后更新时间：<time datetime="2023-02-20T04:42:56.350Z" itemprop="dateUpdated">2023-02-20 12:42:56</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2022/05/12/yuque/apgq6m/" target="_blank" rel="external">https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/</a>
         
     </div>
     
@@ -265,7 +262,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/&title=《Dubbo SPI》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/&title=《反射》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -275,22 +272,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/&title=《Dubbo SPI》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/&title=《反射》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dubbo SPI》 — 西土城马戏团&url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《反射》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -313,18 +310,18 @@
 <nav class="post-nav flex-row flex-justify-between">
   
     <div class="waves-block waves-effect prev">
-      <a href="/2023/02/13/yuque/kt77pz65hcba69id/" id="post-prev" class="post-nav-link">
+      <a href="/2023/02/20/yuque/DataX%E5%85%A5%E9%97%A8/" id="post-prev" class="post-nav-link">
         <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
-        <h4 class="title">小灰的算法之旅读书笔记</h4>
+        <h4 class="title">DataX入门</h4>
       </a>
     </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2021/04/13/yuque/hci4fo/" id="post-next" class="post-nav-link">
+      <a href="/2023/02/13/yuque/%E5%B0%8F%E7%81%B0%E7%9A%84%E7%AE%97%E6%B3%95%E4%B9%8B%E6%97%85%E8%AF%BB%E4%B9%A6%E7%AC%94%E8%AE%B0/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">基础支撑层——反射工具箱</h4>
+        <h4 class="title">小灰的算法之旅读书笔记</h4>
       </a>
     </div>
   
@@ -448,7 +445,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/&title=《Dubbo SPI》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/&title=《反射》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -458,22 +455,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/&title=《Dubbo SPI》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/&title=《反射》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Dubbo SPI》 — 西土城马戏团&url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《反射》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2022/05/12/yuque/apgq6m/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/13/yuque/%E5%8F%8D%E5%B0%84/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -484,7 +481,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKElEQVR42u3ay47DIAwF0Pz/T2ek2XZCr3EyUuCwqvqAHBYuxj6OeJy/4+qdz9dX3//89LwYxxMDAwPjtYxzOMYPnc/ZWTeiYmBgbMAYB9lxwM1JSYBOtgwDAwNjvFiVPQbnh04MDAyMTsCdOwjmKS4GBgZGNZnsL5xQH8zFMTAwXsioFgb+8/WD9Q0MDIyXMM5bR6e22HkeDAyMtRnj9ogn+hyqhdJCIMbAwFiU8USTVrUVI9mOL2thYGBsw6he/Xd+1fn+H5uFgYGxAWNcpMzTzmrzRH4Q/FKowMDA2JIxfpS5UuVcg0WhBouBgbE0oxDa4qQ0P951gniUi2NgYLyckYfUwkSNq7d8EzEwMPZhlC+2pgDVpopyORMDA2NpRj8HzEPqXe0dhbYwDAyMhRidsNh5rOo2RfNjYGAsyug0UlQPhUlJYC6sY2BgrMo4i6NagJwLptWNwMDA2IExd5XWb//Kw+6XoIyBgbE0I0kp+80W+ZZVi5dRpxsGBsYSjE4TWBI080Nn61IPAwNjA0a/JSIvNiRhulxswMDAWJpRnWIuia1uQb4uBgbG2ownDnD9Bo5qyQEDA2NtRqeFqxOC59bCwMDYmVFNVpNLsbm2sDygXxYGMDAwlmbMBb7kt3mZs3qTdiR/IhgYGFsy+p8+cqzEwMDACBbLZx6H4MnMGwMDYwPGXcWAflVxblMwMDDWZlQv65NkNQ/f1UbVG5rGMDAw3sT4ASFZslClU5Y7AAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAN4AAADeCAAAAAB3DOFrAAACp0lEQVR42u3aS3KDQAwFQN//0s4BYsiTNHKRqmbl8gemWTDyk16v+HhfHL+/s/H66orHDjw8PLxDS7+6zNUZ7t+5vxFXV7y6erJmPDw8vG1esoj8CZxTextDfqPx8PDwnsC7Z+Tl7/1yk40BDw8P77/wkqK2+tsk8sDDw8N7Gm+yxDyY6EUPyXkOZC14eHh4MS/vIj3n9Up/Dw8PD2/cVe8NCkzOnFyxcE48PDy8BV6vuZU/rKvfz2PcQhMODw8Pb4FXjQl6S+9tEtXzFMJcPDw8vAEvbybNt5BJuFAtwfHw8PD2eOXyNP40GQjIx7byeAIPDw9vj9cLZydbyCRiKH8HDw8Pb5mXtJ3mD/Fe8ywvqT/09/Dw8PCO8nol8tkSvBfgVj/Fw8PDO8urFtb5ssrRahBklFeCh4eHt8abjKhORq+qIwvl0AQPDw/vKK+6rHmR3XudxxB4eHh43+RNCutqayqJaPPBgiiGwMPDwzvK6zW3JqOrSQAxiS3w8PDw9njVB3q1ZZWze2cYIfHw8PBavF7RXB17yovg3ojV5SaEh4eHt8brDQH0fpvHtZPNZrREPDw8vCJvI5jIH/HloDaPcfHw8PCO8qo9o3mja/7baAvBw8PDW+DlLfkkJsiL73yh1d+W/zfg4eHhHeL1LpYvt7cJNcMLPDw8vDVeNYTtNcDyQrk61nC5Tjw8PLw1XpWR/+uvDge8xgceHh7eHu9dPA4UuEGY24tuP3yKh4eHt8AbjTTFZfepUDgPjps7CR4eHl7MywOFfGSqNyjQa8j9gcTDw8Nb4/Ue973l9m5BtUDHw8PDew5v3jDL490DcTAeHh7eA3jzzWM+WJDHzXh4eHh7vOrgVE7qPeKrGwweHh7eN3kH/vAPAov8BvU2JDw8PLyjvB+HCKZLkfm5ZQAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 
