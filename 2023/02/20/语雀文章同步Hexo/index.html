@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 解决语雀图片防盗链 -->
+    <meta name="referrer" content="no-referrer" />
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d00f33bc9bb5ed02b143f502ceaefd41"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>语雀文章同步Hexo | 西土城马戏团 | Keep Listening Keep Thinking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="效率工具,Hexo">
+    <meta name="description" content="前提条件搭建好 Hexo 博客环境 配置步骤插件源码地址 https:&#x2F;&#x2F;github.com&#x2F;x-cold&#x2F;yuque-hexo  安装 npm install -g yuque-hexo –save 配置 修改博客根目录下的 package.json 文件  12345678910111213141516171819&quot;yuqueConfig&quot;: &amp;#123;  &quot;postPath&quot;: &quot;sou">
+<meta property="og:type" content="article">
+<meta property="og:title" content="语雀文章同步Hexo">
+<meta property="og:url" content="https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/index.html">
+<meta property="og:site_name" content="西土城马戏团">
+<meta property="og:description" content="前提条件搭建好 Hexo 博客环境 配置步骤插件源码地址 https:&#x2F;&#x2F;github.com&#x2F;x-cold&#x2F;yuque-hexo  安装 npm install -g yuque-hexo –save 配置 修改博客根目录下的 package.json 文件  12345678910111213141516171819&quot;yuqueConfig&quot;: &amp;#123;  &quot;postPath&quot;: &quot;sou">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676874621109-8f996193-5bfd-4f00-8dd9-f5ecf5416169.png#averageHue=%23090909&clientId=u3d67214b-d36f-4&from=paste&height=105&id=u123018f6&name=image.png&originHeight=210&originWidth=1070&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=32536&status=done&style=none&taskId=ua317f3fa-ca06-41ad-9117-1fd38ceb8c6&title=&width=535">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676875159904-e9d7fdf4-9a89-4d57-ac76-60362a86b096.png#averageHue=%23fbfbfb&clientId=u3d67214b-d36f-4&from=paste&height=641&id=u4862af86&name=image.png&originHeight=1282&originWidth=2296&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=321115&status=done&style=none&taskId=udadd88eb-b4ac-4b65-9916-097022a214d&title=&width=1148">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676875401551-a93c9e95-10e0-429d-8056-532c563e795f.png#averageHue=%23fcfcfc&clientId=u3d67214b-d36f-4&from=paste&height=661&id=uccba237f&name=image.png&originHeight=1322&originWidth=2552&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=208043&status=done&style=none&taskId=ued5bd6e5-5f1f-4245-b607-a25be4ebf5b&title=&width=1276">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676876622078-72fba422-ba11-4928-ae6c-e8aff2aa7479.png#averageHue=%23d0ccd5&clientId=u3d67214b-d36f-4&from=paste&height=637&id=ub36f6bc5&name=image.png&originHeight=1274&originWidth=680&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=300473&status=done&style=none&taskId=ub7c0ae0e-240b-4119-9996-c5a5d99dd8e&title=&width=340">
+<meta property="article:published_time" content="2023-02-20T05:34:21.000Z">
+<meta property="article:modified_time" content="2023-02-20T07:14:27.690Z">
+<meta property="article:author" content="xiaoysec">
+<meta property="article:tag" content="效率工具">
+<meta property="article:tag" content="Hexo">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676874621109-8f996193-5bfd-4f00-8dd9-f5ecf5416169.png#averageHue=%23090909&clientId=u3d67214b-d36f-4&from=paste&height=105&id=u123018f6&name=image.png&originHeight=210&originWidth=1070&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=32536&status=done&style=none&taskId=ua317f3fa-ca06-41ad-9117-1fd38ceb8c6&title=&width=535">
+    
+        <link rel="alternate" type="application/atom+xml" title="西土城马戏团" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://xiaoysec.github.io/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">xiaoysec</h5>
+          <a href="mailto:xiaoysec@163.com" title="xiaoysec@163.com" class="mail">xiaoysec@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about" target="_blank" >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xiaoysec" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">语雀文章同步Hexo</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">语雀文章同步Hexo</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-02-20T05:34:21.000Z" itemprop="datePublished" class="page-time">
+  2023-02-20
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">效率工具</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#前提条件"><span class="post-toc-number">1.</span> <span class="post-toc-text">前提条件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置步骤"><span class="post-toc-number">2.</span> <span class="post-toc-text">配置步骤</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一些坑"><span class="post-toc-number">3.</span> <span class="post-toc-text">一些坑</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考文章"><span class="post-toc-number">4.</span> <span class="post-toc-text">参考文章</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-语雀文章同步Hexo"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">语雀文章同步Hexo</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-02-20 13:34:21" datetime="2023-02-20T05:34:21.000Z"  itemprop="datePublished">2023-02-20</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/">效率工具</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="前提条件"><a href="#前提条件" class="headerlink" title="前提条件"></a>前提条件</h3><p>搭建好 Hexo 博客环境</p>
+<h3 id="配置步骤"><a href="#配置步骤" class="headerlink" title="配置步骤"></a>配置步骤</h3><p>插件源码地址 <a href="https://github.com/x-cold/yuque-hexo" target="_blank" rel="noopener">https://github.com/x-cold/yuque-hexo</a></p>
+<ol>
+<li>安装 npm install -g yuque-hexo –save</li>
+<li>配置 修改博客根目录下的 package.json 文件<br><img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676874621109-8f996193-5bfd-4f00-8dd9-f5ecf5416169.png#averageHue=%23090909&clientId=u3d67214b-d36f-4&from=paste&height=105&id=u123018f6&name=image.png&originHeight=210&originWidth=1070&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=32536&status=done&style=none&taskId=ua317f3fa-ca06-41ad-9117-1fd38ceb8c6&title=&width=535" alt="image.png"></li>
+</ol>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">"yuqueConfig": &#123;</span><br><span class="line">  "postPath": "source/_posts",</span><br><span class="line">  "cachePath": "yuque.json",</span><br><span class="line">  "mdNameFormat": "slug",</span><br><span class="line">  "adapter": "hexo",</span><br><span class="line">  "concurrency": 5,</span><br><span class="line">  "baseUrl": "https://www.yuque.com/api/v2",</span><br><span class="line">  "login": "xituchengxiaoyang",</span><br><span class="line">  "repo": "blog",</span><br><span class="line">  "token": "语雀token",</span><br><span class="line">  "onlyPublished": true,</span><br><span class="line">  "onlyPublic": true</span><br><span class="line">&#125;,</span><br><span class="line">"devDependencies": &#123;</span><br><span class="line">  "yuque-hexo": "^1.6.0"</span><br><span class="line">&#125;,</span><br><span class="line">"hexo": &#123;</span><br><span class="line">  "version": "4.2.1"</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+
+<p>参数解释</p>
+<table>
+<thead>
+<tr>
+<th>参数名</th>
+<th>含义</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>postPath</td>
+<td>文档同步后生成的路径</td>
+<td>source&#x2F;_posts&#x2F;yuque</td>
+</tr>
+<tr>
+<td>cachePath</td>
+<td>文档下载缓存文件</td>
+<td>yuque.json</td>
+</tr>
+<tr>
+<td>mdNameFormat</td>
+<td>文件名命名方式 (title &#x2F; slug)</td>
+<td>title</td>
+</tr>
+<tr>
+<td>adapter</td>
+<td>文档生成格式 (hexo&#x2F;markdown)</td>
+<td>hexo</td>
+</tr>
+<tr>
+<td>concurrency</td>
+<td>下载文章并发数</td>
+<td>5</td>
+</tr>
+<tr>
+<td>baseUrl</td>
+<td>语雀 API 地址</td>
+<td>-</td>
+</tr>
+<tr>
+<td>login</td>
+<td>语雀 login (group), 也称为个人路径</td>
+<td>-</td>
+</tr>
+<tr>
+<td>repo</td>
+<td>语雀仓库短名称，也称为语雀知识库路径</td>
+<td>-</td>
+</tr>
+<tr>
+<td>onlyPublished</td>
+<td>只展示已经发布的文章</td>
+<td>false</td>
+</tr>
+<tr>
+<td>onlyPublic</td>
+<td>只展示公开文章</td>
+<td>false</td>
+</tr>
+</tbody></table>
+<p>baseUrl 是固定的照抄就行，mdNameFormat 建议使用 title，repo 信息在这边看</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676875159904-e9d7fdf4-9a89-4d57-ac76-60362a86b096.png#averageHue=%23fbfbfb&clientId=u3d67214b-d36f-4&from=paste&height=641&id=u4862af86&name=image.png&originHeight=1282&originWidth=2296&originalType=binary∶=2&rotation=0&showTitle=false&size=321115&status=done&style=none&taskId=udadd88eb-b4ac-4b65-9916-097022a214d&title=&width=1148" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+<p>Token 需要设置一下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676875401551-a93c9e95-10e0-429d-8056-532c563e795f.png#averageHue=%23fcfcfc&clientId=u3d67214b-d36f-4&from=paste&height=661&id=uccba237f&name=image.png&originHeight=1322&originWidth=2552&originalType=binary∶=2&rotation=0&showTitle=false&size=208043&status=done&style=none&taskId=ued5bd6e5-5f1f-4245-b607-a25be4ebf5b&title=&width=1276" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+
+<ol start="3">
+<li>在 package.json 中配置 scripts</li>
+</ol>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//添加以下命令行</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">"sync"</span>: <span class="string">"yuque-hexo sync"</span>,</span><br><span class="line">  <span class="attr">"clean:yuque"</span>: <span class="string">"yuque-hexo clean"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>完整的 package.json 文件如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"name"</span>: <span class="string">"hexo-site"</span>,</span><br><span class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.0"</span>,</span><br><span class="line">  <span class="attr">"private"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"scripts"</span>: &#123;</span><br><span class="line">    <span class="attr">"build"</span>: <span class="string">"hexo generate"</span>,</span><br><span class="line">    <span class="attr">"clean"</span>: <span class="string">"hexo clean"</span>,</span><br><span class="line">    <span class="attr">"deploy"</span>: <span class="string">"hexo deploy"</span>,</span><br><span class="line">    <span class="attr">"server"</span>: <span class="string">"hexo server"</span>,</span><br><span class="line">    <span class="attr">"sync"</span>: <span class="string">"yuque-hexo sync"</span>,</span><br><span class="line">    <span class="attr">"clean:yuque"</span>: <span class="string">"yuque-hexo clean"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"hexo"</span>: &#123;</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"4.2.1"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"dependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"hexo"</span>: <span class="string">"^4.2.1"</span>,</span><br><span class="line">    <span class="attr">"hexo-deployer-git"</span>: <span class="string">"^4.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-archive"</span>: <span class="string">"^2.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-category"</span>: <span class="string">"^2.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-feed"</span>: <span class="string">"^3.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-index"</span>: <span class="string">"^3.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-json-content"</span>: <span class="string">"^4.2.3"</span>,</span><br><span class="line">    <span class="attr">"hexo-generator-tag"</span>: <span class="string">"^2.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-helper-qrcode"</span>: <span class="string">"^1.0.2"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-ejs"</span>: <span class="string">"^2.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-less"</span>: <span class="string">"^4.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-marked"</span>: <span class="string">"^6.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-renderer-stylus"</span>: <span class="string">"^2.1.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-server"</span>: <span class="string">"^3.0.0"</span>,</span><br><span class="line">    <span class="attr">"hexo-theme-landscape"</span>: <span class="string">"^0.0.3"</span>,</span><br><span class="line">    <span class="attr">"yuque-hexo"</span>: <span class="string">"^1.9.5"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"devDependencies"</span>: &#123;</span><br><span class="line">    <span class="attr">"yuque-hexo"</span>: <span class="string">"^1.9.5"</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"yuqueConfig"</span>: &#123;</span><br><span class="line">    <span class="attr">"postPath"</span>: <span class="string">"source/_posts/yuque"</span>,</span><br><span class="line">    <span class="attr">"cachePath"</span>: <span class="string">"yuque.json"</span>,</span><br><span class="line">    <span class="attr">"mdNameFormat"</span>: <span class="string">"title"</span>,</span><br><span class="line">    <span class="attr">"adapter"</span>: <span class="string">"hexo"</span>,</span><br><span class="line">    <span class="attr">"concurrency"</span>: <span class="number">5</span>,</span><br><span class="line">    <span class="attr">"baseUrl"</span>: <span class="string">"https://www.yuque.com/api/v2"</span>,</span><br><span class="line">    <span class="attr">"login"</span>: <span class="string">"XXXXX"</span>, <span class="comment">//你自己的用户名</span></span><br><span class="line">    <span class="attr">"repo"</span>: <span class="string">"XXXX"</span>, <span class="comment">//你自己的仓库名</span></span><br><span class="line">    <span class="attr">"token"</span>: <span class="string">"XXXXX"</span>, <span class="comment">//你自己的token</span></span><br><span class="line">    <span class="attr">"onlyPublished"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"onlyPublic"</span>: <span class="literal">false</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>同步命令</li>
+</ol>
+<p>yuque-hexo sync 同步<br>yuque-hexo clean 清楚本地缓存</p>
+<h3 id="一些坑"><a href="#一些坑" class="headerlink" title="一些坑"></a>一些坑</h3><ol>
+<li>语雀图片无法正常显示</li>
+</ol>
+<p>因为语雀图片防盗链机制，图片无法正常显示，需要对主题下的文件做一点修改如我使用的 indigo，需要修改 themes&#x2F;indigo&#x2F;layout&#x2F;_partial&#x2F;head.ejs ，添加如下的源码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"referrer"</span> <span class="attr">content</span>=<span class="string">"no-referrer"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>部署出错，kex_exchange_identification: Connection closed by remote</li>
+</ol>
+<p>github 22 端口 timeout,直接使用 443 端口解决，在**~&#x2F;.ssh&#x2F;config **文件中添加如下</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">Host</span> <span class="string">github.com</span></span><br><span class="line"><span class="string">HostName</span> <span class="string">ssh.github.com</span></span><br><span class="line"><span class="string">User</span> <span class="string">git</span></span><br><span class="line"><span class="string">Port</span> <span class="number">443</span></span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>在命令行工具中使用代理</li>
+</ol>
+<p>在.zshrc 或者.bash_profile 中添加如下命令，后重新加载环境变量，需要使用到梯子只需要先执行 on_proxy</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">function on_proxy() &#123;</span><br><span class="line">    export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"</span><br><span class="line">    export http_proxy="http://127.0.0.1:9850"</span><br><span class="line">    export https_proxy=$http_proxy</span><br><span class="line">    export all_proxy=socks5://127.0.0.1:9850</span><br><span class="line">    echo -e "\n"</span><br><span class="line">    echo -e "proxy is on"</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function off_proxy()&#123;</span><br><span class="line">    unset http_proxy</span><br><span class="line">    unset https_proxy</span><br><span class="line">    unset all_proxy</span><br><span class="line">    echo -e "proxy is off"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>mac 下查看 clash 中的代理信息如下</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1676876622078-72fba422-ba11-4928-ae6c-e8aff2aa7479.png#averageHue=%23d0ccd5&clientId=u3d67214b-d36f-4&from=paste&height=637&id=ub36f6bc5&name=image.png&originHeight=1274&originWidth=680&originalType=binary∶=2&rotation=0&showTitle=false&size=300473&status=done&style=none&taskId=ub7c0ae0e-240b-4119-9996-c5a5d99dd8e&title=&width=340" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+<p>不要使用 ping <a href="http://www.google.com来进行测试,因为ping命令使用的是icmp协议,是不支持代理的./" target="_blank" rel="noopener">www.google.com来进行测试，因为ping命令使用的是ICMP协议，是不支持代理的。</a></p>
+<h3 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h3><p>[1] <a href="http://www.manongjc.com/detail/61-xmojtxvddsuftbg.html" target="_blank" rel="noopener">http://www.manongjc.com/detail/61-xmojtxvddsuftbg.html</a><br>[2] <a href="https://cloud.tencent.com/developer/article/2114329" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/2114329</a><br>[3] <a href="https://cloud.tencent.com/developer/article/2168702" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/2168702</a><br>[4] <a href="https://zhuanlan.zhihu.com/p/577256660" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/577256660</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-02-20T07:14:27.690Z" itemprop="dateUpdated">2023-02-20 15:14:27</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://xiaoysec.github.io">
+            <img src="/img/avatar.jpg" alt="xiaoysec">
+            xiaoysec
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/" rel="tag">Hexo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%95%88%E7%8E%87%E5%B7%A5%E5%85%B7/" rel="tag">效率工具</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/&title=《语雀文章同步Hexo》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/&title=《语雀文章同步Hexo》 — 西土城马戏团&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《语雀文章同步Hexo》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/&via=https://xiaoysec.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/02/20/%E5%8F%AC%E5%9B%9E%E7%B3%BB%E7%BB%9F%E5%9C%A8%E6%B5%B7%E6%8B%8D%E5%AE%A2%E7%9A%84%E5%AE%9E%E8%B7%B5/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">召回系统在海拍客的实践</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "JV9OEqq8eybOt1zwnuJfUskP-9Nh9j0Va",
+            appKey: "ZHH0fZUDA2mN08nH1JN6jua4",
+            avatar: "mm",
+            placeholder: "快来评论吧~",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>xiaoysec &copy; 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/&title=《语雀文章同步Hexo》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/&title=《语雀文章同步Hexo》 — 西土城马戏团&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《语雀文章同步Hexo》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/&via=https://xiaoysec.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/20/%E8%AF%AD%E9%9B%80%E6%96%87%E7%AB%A0%E5%90%8C%E6%AD%A5Hexo/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPYAAAD2CAAAAADAeSUUAAADNElEQVR42u3ay47iQAwFUP7/p2lpViNNJ1zbGSkxJ6sWhEqdQmrjx+sVX+8/19Hrf1//vn6+2vvgOl8/ecoFFzY2NvZD2O/T64idUBPG+cr5weUWbGxs7K3sPMxUt5gcXB4gz7+SxIKNjY39zex8Q71ko5caYWNjY2NPAtgoGQiqPXlpCRsbGxu7GmbmJfteYShhX1xLw8bGxr49+6qf/nf4+z/2t7GxsbFvyX4Xr3yFPMHIx4B6oe6X1bCxsbEXsc9L/9Wt9xKVXvMgf+5heMPGxsZewU5uystGyUjNpCFRbUgffhYbGxt7KTsvxE8KPVcFp1EgxMbGxl7Kzodg8gZw9d3J4E5elsLGxsbexJ6nCsl2qyvnW88P5YL2ADY2NvYt2UmgSpa+qmyUj+BUg9+rGp+xsbGxH8KubigPNtXwUy1a9Y4JGxsbeys7Z1SX7h3E5FgLBSxsbGzsRexJk7XXDKgW/XtPz0MgNjY29nPZ8yGbSVDpHe4FSQs2Njb2InavEVvdSrK5vG1QXbMct7GxsbEfy66mE/OtV9fPWwLlRi82Njb2Ivbkh35vNGd+rHmJ6kO7FxsbG/uB7GqLt5p45I2HXvjJnzga1sHGxsa+PbsXkPJDzAdoqvf0PouNjY29iZ38b+8Nx4wCzEWlrmZFDRsbG/uB7GoRP/89P28D9A4iavRiY2Njr2D32qXzEZzJEeQJz+GnsLGxsZeyqw+7KnWZ31NuM2NjY2MvYic/9K9q5ebhcDIq1GtsYGNjYz+XXS2s95KQ3pBQdVeFd7GxsbFXs5M0oxo2esWgvORUPjJsbGzsRexqGaiXruTgXqpT3Rs2Njb2JnYPkG9uXo2fNxUK3zM2Njb2Y9m9YtA8YZgnMM1+CDY2NvY6dn6dB4l8lCc/uN5Yz4cdYmNjYy9i9wZfetvqlZB6bYbmCCY2Njb2Y9n50Ez1FCcN2l6wzA8FGxsbex872XS1VJQfaGG7xSbE4f3Y2NjYX8nOH9xrD0yelQddbGxsbOx5QOqtnzcwosoZNjY29jp2vtCHwDBIZuYFrPP7m7U0bGxs7Nuzq43evExfDS1VUh7wsLGxsZeyfwBItDF0ySdDUwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
