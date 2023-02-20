@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 解决语雀图片防盗链 -->
+    <meta name="referrer" content="no-referrer" />
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d00f33bc9bb5ed02b143f502ceaefd41"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>架构概览 | 西土城马戏团 | Keep Listening Keep Thinking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="">
+    <meta name="description" content="MyBatis 分为三层架构，分别是基础支撑层、核心处理层和接口层 基础支撑层                                                                                             image.png                类型转换 比如 typeAlias 的应用 JdbcType 和 JavaType 的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="架构概览">
+<meta property="og:url" content="https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/index.html">
+<meta property="og:site_name" content="西土城马戏团">
+<meta property="og:description" content="MyBatis 分为三层架构，分别是基础支撑层、核心处理层和接口层 基础支撑层                                                                                             image.png                类型转换 比如 typeAlias 的应用 JdbcType 和 JavaType 的">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618303626046-df21435d-a9b6-40ac-8bb0-d66992a5b73d.png#height=343&id=cwF8Y&name=image.png&originHeight=686&originWidth=1054&originalType=binary&size=379991&status=done&style=none&width=527">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618304197485-11849439-30e1-401b-b46f-44704157c258.png#height=300&id=AUUzI&name=image.png&originHeight=592&originWidth=628&originalType=binary&size=170908&status=done&style=none&width=318">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618304876907-86961870-d582-41f7-82f2-140fdfbf404c.png#height=344&id=WA39W&name=image.png&originHeight=688&originWidth=974&originalType=binary&size=225945&status=done&style=none&width=487">
+<meta property="article:published_time" content="2021-04-13T08:45:07.000Z">
+<meta property="article:modified_time" content="2023-02-20T01:56:20.975Z">
+<meta property="article:author" content="xiaoysec">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618303626046-df21435d-a9b6-40ac-8bb0-d66992a5b73d.png#height=343&id=cwF8Y&name=image.png&originHeight=686&originWidth=1054&originalType=binary&size=379991&status=done&style=none&width=527">
+    
+        <link rel="alternate" type="application/atom+xml" title="西土城马戏团" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://xiaoysec.github.io/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">xiaoysec</h5>
+          <a href="mailto:xiaoysec@163.com" title="xiaoysec@163.com" class="mail">xiaoysec@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about" target="_blank" >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xiaoysec" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">架构概览</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">架构概览</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-04-13T08:45:07.000Z" itemprop="datePublished" class="page-time">
+  2021-04-13
+</time>
+
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#基础支撑层"><span class="post-toc-number">1.</span> <span class="post-toc-text">基础支撑层</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#核心处理层"><span class="post-toc-number">2.</span> <span class="post-toc-text">核心处理层</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-yuque/fqegg6"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">架构概览</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-04-13 16:45:07" datetime="2021-04-13T08:45:07.000Z"  itemprop="datePublished">2021-04-13</time>
+
+            
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>MyBatis 分为三层架构，分别是基础支撑层、核心处理层和接口层</p>
+<h3 id="基础支撑层"><a href="#基础支撑层" class="headerlink" title="基础支撑层"></a>基础支撑层</h3><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618303626046-df21435d-a9b6-40ac-8bb0-d66992a5b73d.png#height=343&id=cwF8Y&name=image.png&originHeight=686&originWidth=1054&originalType=binary&size=379991&status=done&style=none&width=527" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+
+<ol>
+<li>类型转换 比如 typeAlias 的应用 JdbcType 和 JavaType 的转换等</li>
+<li>日志模块 排查问题 优化等</li>
+<li>反射工具模块 在 Java 反射的基础上封装了反射工具 缓存 Java 原生的反射相关元信息提升反射的效率</li>
+<li>binding 模块 自动生成 Mapper 接口的动态代理对象</li>
+<li>数据源模块 数据源实现和三方数据源集成接口</li>
+<li>缓存模块</li>
+<li>解析器模块 主要提供对配置文件的解析 对 Mapper.xml 文件的解析</li>
+<li>事务管理模块</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618304197485-11849439-30e1-401b-b46f-44704157c258.png#height=300&id=AUUzI&name=image.png&originHeight=592&originWidth=628&originalType=binary&size=170908&status=done&style=none&width=318" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+
+<h3 id="核心处理层"><a href="#核心处理层" class="headerlink" title="核心处理层"></a>核心处理层</h3><p>涉及 MyBatis 的初始化和一条 SQL 的全流程</p>
+<ol>
+<li>配置解析 将配置文件 mapper 文件等配置信息解析后封装成 Configuration 对象</li>
+<li>SQL 解析和 scripting 模块 动态生成 SQL</li>
+<li>SQL 执行   在 MyBatis 中，要执行一条 SQL 语句，会涉及非常多的组件，比较核心的有：Executor、StatementHandler、ParameterHandler 和 ResultSetHandler</li>
+</ol>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618304876907-86961870-d582-41f7-82f2-140fdfbf404c.png#height=344&id=WA39W&name=image.png&originHeight=688&originWidth=974&originalType=binary&size=225945&status=done&style=none&width=487" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+
+<ol start="4">
+<li>插件</li>
+</ol>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-02-20T01:56:20.975Z" itemprop="dateUpdated">2023-02-20 09:56:20</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2021/04/13/yuque/fqegg6/" target="_blank" rel="external">https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://xiaoysec.github.io">
+            <img src="/img/avatar.jpg" alt="xiaoysec">
+            xiaoysec
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/&title=《架构概览》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/&title=《架构概览》 — 西土城马戏团&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《架构概览》 — 西土城马戏团&url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/&via=https://xiaoysec.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2021/04/13/yuque/hci4fo/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">基础支撑层——反射工具箱</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/05/31/Slf4j%E6%BA%90%E7%A0%81%E6%B5%85%E6%9E%90/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Slf4j源码浅析</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "JV9OEqq8eybOt1zwnuJfUskP-9Nh9j0Va",
+            appKey: "ZHH0fZUDA2mN08nH1JN6jua4",
+            avatar: "mm",
+            placeholder: "快来评论吧~",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>xiaoysec &copy; 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/&title=《架构概览》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/&title=《架构概览》 — 西土城马戏团&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《架构概览》 — 西土城马戏团&url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/&via=https://xiaoysec.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2021/04/13/yuque/fqegg6/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMklEQVR42u3awY6DMAxFUf7/p5nNLEaqCPfZTCWcm1XVAslh4Tp2jgOP82Ok3//9lcxy/MeQIUPGaxnncqyXu15Eh83XJkOGjH0YV8u6+vx519U3/AWt571ZswwZMmSUErs1uDOvDBkyZKSP4ynj+nWsg68MGTJkkASOpIm1LfFX9+IyZMh4IYNX3b//+V/6GzJkyHgV4wwH37KSrWx/Pb/PlCFDxmjGU6W0tG1QK8PdXClDhowNGDykEny6oLQ5GkwpQ4aMEYx0E5uGaR6gO2U+GTJkTGV0piETpHj+vmXIkLEPo3NzejAibUOShFWGDBk7MGrl/k7Q5Pggk5UhQ8ZoRicgkkSQvLi0nXD5NBkyZAxlpJtSHmQfaEmm5TYZMmQMZfB0jXcSaleSGW+CuwwZMoYy0qNaaQOgE6yDVyNDhoxtGGTRtfCaNg9ICA4aAzJkyHg5g9/AGwnk+AVPBA8+ZMiQsRmDLKW/6Nq2+ZInQ4aM0Qy+ie1MQIJ4+kJlyJCxD6NfRCPHNc5wpGmrDBkydmCkATFNFvlhC3LsFf1jyJAhYxyDF+55AS4NuLyqho5cyJAhYwSjlq7VDmek4Z7/DciQIWM2I+0PpuG4X7YjiakMGTJ2YKRlr6eOi8U57HoWGTJkbMCo1a94+f6pVA/txWXIkLE9g2ea30klZciQIYM3ANJ2Zq0herOJlSFDxmhG7bjD+hoeWPmRCxkyZOzJ4FtH3npMl9hJTGXIkDGa8QPfvdsZGdOkZgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!-- 解决语雀图片防盗链 -->
+    <meta name="referrer" content="no-referrer" />
     
 
     
@@ -19,22 +21,26 @@
     
     
     
-    <title>关于求职的一些想法 | 西土城马戏团 | Keep Listening Keep Thinking</title>
+    <title>基础支撑层——反射工具箱 | 西土城马戏团 | Keep Listening Keep Thinking</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     
     <meta name="theme-color" content="#3F51B5">
     
     
     <meta name="keywords" content="">
-    <meta property="og:type" content="article">
-<meta property="og:title" content="关于求职的一些想法">
-<meta property="og:url" content="https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/index.html">
+    <meta name="description" content="代码位于  org.apache.ibatis.reflection reflectorThis class represents a cached set of class definition information thatallows for easy mapping between property names and getter&#x2F;setter methods._缓存类的元数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基础支撑层——反射工具箱">
+<meta property="og:url" content="https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/index.html">
 <meta property="og:site_name" content="西土城马戏团">
+<meta property="og:description" content="代码位于  org.apache.ibatis.reflection reflectorThis class represents a cached set of class definition information thatallows for easy mapping between property names and getter&#x2F;setter methods._缓存类的元数">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-16T08:23:44.000Z">
-<meta property="article:modified_time" content="2023-02-16T08:23:44.280Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618411802708-4ee40972-2ed7-4bb8-a528-29d5ee205ba4.png#align=left&display=inline&height=591&name=image.png&originHeight=1182&originWidth=1438&size=1197583&status=done&style=none&width=719">
+<meta property="article:published_time" content="2021-04-13T09:11:58.000Z">
+<meta property="article:modified_time" content="2023-02-20T01:56:20.974Z">
 <meta property="article:author" content="xiaoysec">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618411802708-4ee40972-2ed7-4bb8-a528-29d5ee205ba4.png#align=left&display=inline&height=591&name=image.png&originHeight=1182&originWidth=1438&size=1197583&status=done&style=none&width=719">
     
         <link rel="alternate" type="application/atom+xml" title="西土城马戏团" href="/atom.xml">
     
@@ -122,7 +128,7 @@
         <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
           <i class="icon icon-lg icon-navicon"></i>
         </a>
-        <div class="flex-col header-title ellipsis">关于求职的一些想法</div>
+        <div class="flex-col header-title ellipsis">基础支撑层——反射工具箱</div>
         
         <div class="search-wrap" id="search-wrap">
             <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
@@ -144,11 +150,11 @@
 <header class="content-header post-header">
 
     <div class="container fade-scale">
-        <h1 class="title">关于求职的一些想法</h1>
+        <h1 class="title">基础支撑层——反射工具箱</h1>
         <h5 class="subtitle">
             
-                <time datetime="2023-02-16T08:23:44.000Z" itemprop="datePublished" class="page-time">
-  2023-02-16
+                <time datetime="2021-04-13T09:11:58.000Z" itemprop="datePublished" class="page-time">
+  2021-04-13
 </time>
 
 
@@ -164,14 +170,21 @@
 
 <div class="container body-wrap">
     
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#reflector"><span class="post-toc-number">1.</span> <span class="post-toc-text">reflector</span></a></li></ol>
+        </nav>
+    </aside>
 
-<article id="post-关于求职的一些想法"
+
+<article id="post-yuque/hci4fo"
   class="post-article article-type-post fade" itemprop="blogPost">
 
     <div class="post-card">
-        <h1 class="post-card-title">关于求职的一些想法</h1>
+        <h1 class="post-card-title">基础支撑层——反射工具箱</h1>
         <div class="post-meta">
-            <time class="post-time" title="2023-02-16 16:23:44" datetime="2023-02-16T08:23:44.000Z"  itemprop="datePublished">2023-02-16</time>
+            <time class="post-time" title="2021-04-13 17:11:58" datetime="2021-04-13T09:11:58.000Z"  itemprop="datePublished">2021-04-13</time>
 
             
 
@@ -184,7 +197,25 @@
 
         </div>
         <div class="post-content" id="post-content" itemprop="postContent">
-            
+            <p>代码位于  org.apache.ibatis.reflection</p>
+<h3 id="reflector"><a href="#reflector" class="headerlink" title="reflector"></a>reflector</h3><p><em>This class represents a cached set of class definition information that<br>allows for easy mapping between property names and getter&#x2F;setter methods.</em><br>_<br>缓存类的元数据信息，管理类的属性和方法，提高反射的效率</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2021/png/21378486/1618411802708-4ee40972-2ed7-4bb8-a528-29d5ee205ba4.png#align=left&display=inline&height=591&name=image.png&originHeight=1182&originWidth=1438&size=1197583&status=done&style=none&width=719" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+<p>Reflector 创建核心流程即传入 Class 对象并解析填充 Reflector 的各个属性</p>
+<ol>
+<li>type 传入 Class 对象</li>
+<li>通过反射获取 Class 对象的所有构造方法，遍历获取无参构造方法初始化 defaultConstructor</li>
+</ol>
+<p>见 org.apache.ibatis.reflection.Reflector#addDefaultConstructor</p>
+<ol start="3">
+<li></li>
+</ol>
+
         </div>
 
         <blockquote class="post-copyright">
@@ -192,12 +223,12 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2023-02-16T08:23:44.280Z" itemprop="dateUpdated">2023-02-16 16:23:44</time>
+    最后更新时间：<time datetime="2023-02-20T01:56:20.974Z" itemprop="dateUpdated">2023-02-20 09:56:20</time>
 </span><br>
 
 
         
-        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/</a>
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2021/04/13/yuque/hci4fo/" target="_blank" rel="external">https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/</a>
         
     </div>
     
@@ -226,7 +257,7 @@
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/&title=《关于求职的一些想法》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/&title=《基础支撑层——反射工具箱》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -236,22 +267,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/&title=《关于求职的一些想法》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/&title=《基础支撑层——反射工具箱》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于求职的一些想法》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基础支撑层——反射工具箱》 — 西土城马戏团&url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -271,14 +302,21 @@
     </div>
 
     
-<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2022/05/12/yuque/apgq6m/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Dubbo SPI</h4>
+      </a>
+    </div>
   
 
   
     <div class="waves-block waves-effect next">
-      <a href="/2023/02/16/hello-world/" id="post-next" class="post-nav-link">
+      <a href="/2021/04/13/yuque/fqegg6/" id="post-next" class="post-nav-link">
         <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
-        <h4 class="title">Hello World</h4>
+        <h4 class="title">架构概览</h4>
       </a>
     </div>
   
@@ -402,7 +440,7 @@
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/&title=《关于求职的一些想法》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/&title=《基础支撑层——反射工具箱》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -412,22 +450,22 @@
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/&title=《关于求职的一些想法》 — 西土城马戏团&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/&title=《基础支撑层——反射工具箱》 — 西土城马戏团&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《关于求职的一些想法》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/&via=https://xiaoysec.github.io" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《基础支撑层——反射工具箱》 — 西土城马戏团&url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/&via=https://xiaoysec.github.io" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/16/%E5%85%B3%E4%BA%8E%E6%B1%82%E8%81%8C%E7%9A%84%E4%B8%80%E4%BA%9B%E6%83%B3%E6%B3%95/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2021/04/13/yuque/hci4fo/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -438,7 +476,7 @@
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQ4AAAEOCAAAAABd2qZ5AAAD6klEQVR42u3aQW7jQAwEQP3/095rFnCsbnIU+FA6LRxFmqks0CaH1xVfrx/XVV6vX67knuS9v905Wy0OHDhw4NhzJIvIP0ne9fmTGVO+2htoHDhw4MBxiOPz0pNt52Hcbi/Px/ZPhQMHDhw4voFjtvl8G7O3f45wHDhw4MDxzRx54bSP4YRj9ufEgQMHDhxPc8xab3nRlTTsNkdKeXPzWK8UBw4cOHDMZxKGofs9/35kvgMHDhw4cIzGBT4Pt20GCPLhubwgzNfw5u04cODAgWPNkQdSUtTN2nN53rXxP9sXDhw4cOB4miOJrhZlFsP7hmA0ZoEDBw4cOBYcbYwVYwFBaZePL+ThPfvdNxUtDhw4cOBYcORjBO3gWrv5vCTbh/ebT3DgwIEDx5qjLZY2Rz75wEROPCvzbr464MCBAweONUe+rLYx1z551hxsV17cgwMHDhw4Rhyb0Nqg7KM0D/L8YAwHDhw4cJziaFuEeTmXh2s7VNduNVotDhw4cOB4jCMB2nBsyJKobu/BgQMHDhx7jra5lg8H5EXdjLttDtYRiwMHDhw4Rhzt8Uxy/+bgqmU6O4eAAwcOHDjOcrRHPpti6blC7sCwBQ4cOHDgWHDMhgNmpd3mAOlVXrNGJw4cOHDgOMvRHhHlZVIeh7PDrfw5N/Q4cODAgeMoRzEBsR5N+/z82aqS8vLm+Thw4MCBY81xaqwtL9XaZmJe5uXPvzaPxoEDBw4ci5bcpjnYNhw3hdmpt+DAgQMHjrMcya35yEIehzP0WRNzeCSGAwcOHDhijuJIJl70Bnc2yjCL6jc7xYEDBw4cRzlODSLkx1QJ06ykXJ3C4cCBAweOx07w8+OlYbCVcdsGcL7m4fcLHDhw4MAxGnRo23NJKdhueBb/hw+rcODAgQNHwLFvC7bDAckhUFLUtaNy0Sc4cODAgeMxjll0tW24zSBC2xzEgQMHDhx/z5G8fgPUllU5d3v/r6vCgQMHDhwPcOyDMI+3ts13qji8ztaXOHDgwIFjNIiwieTNWNusVGtj+L+gxYEDBw4ca452oKHdUlIKzoKzJb45vsKBAwcOHGuO2ePy0Yd8ECGJybyl2D75zf8RHDhw4MAx4tgf/Mw22bYUZ2tomXDgwIEDx54jv9oxhba0m0VpWwS2Q3g4cODAgWPG0YZrHnKbINwXh20LEgcOHDhwnOVog6ptz7UJ3z6z/e5w0yvFgQMHDhx/yDFr3uVPzkvBfWl35T/GgQMHDhyPcewH5mZNvdnvHpsfxIEDBw4cJUcbXW3BljQcZ+GdjETkZDhw4MCBY8+Rt9KiEujQVtt25OagCwcOHDhwHOL4B63Nphi0UvGNAAAAAElFTkSuQmCC" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACOUlEQVR42u3aS46DQAxFUfa/aXoaqUNxnw2RMJdRRAjUycD4U9uGj/3fkZ7//PbzmqOnbHccMmTIeCxjXx7pso5+Rc7wb79QZciQ8QLGUQRbX8MDKFkof64MGTJkrG+3vn69RJICypAhQ8YdAZcsi5Sy6+ArQ4YMGSSBW6eA/ZL4R7W4DBkyHsjgXffff75lviFDhoxHMfbwSJtr6WByLx0yZMiYzUib/uk2C16sdsAyZMiYzahtnug34Gq8eM+aDBkyxjE4oFP6pgnf+vOXgCtDhoxxjFoByR+Qhk5e+sqQIeM9jNTKW2zpiLSW78mQIeM9jFqLv5bApUknKoZlyJAxmsETu2K+uXxWGuJPXgAyZMgYyugUq3zTWHGyWusaypAhYxyjPwaIx421dwIpmGXIkDGakRauPEynCSUJ6BuP3DJkyBjHqN2IB8o0jJL7nIRdGTJkjGDwUSJZBDmTDkfjd4UMGTKGMjqNe54+kuuLoV+GDBmjGTx21YpSHrjTwQPaRSJDhoxBDL61Im2x1VLGtJSVIUPGexgkwPHWfzoQTf+CuJSVIUPGCEZapnYa/TzdDFYrQ4aMoYxrN1LUFpfe/yS3lSFDxjhGus+Kh93auHS93DhZlCFDxiBG2vaqlbWdUQT6rQwZMl7AqAW+zsCgluqd1OIyZMiQcdGminSrGaLKkCFDxjLIki0aVw1ET4pYGTJkjGb0tzvUylo+Wris3SZDhowHMjpNMZ7MpQNOPh6QIUPGaMYfkOLRPwWOo4sAAAAASUVORK5CYII=" alt="微信分享二维码">
 </div>
 
 
