@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- 解决语雀图片防盗链 -->
+    <meta name="referrer" content="no-referrer" />
+    
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?d00f33bc9bb5ed02b143f502ceaefd41"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>特征平台调研-网易新闻推荐工程 | 西土城马戏团 | Keep Listening Keep Thinking</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="推荐系统,特征平台,系统设计">
+    <meta name="description" content="业务特性  信息流推荐，实时性要求高  例如图中的用户实时兴趣特征(受到用户兴趣迁移用户反馈等影响)，文章的实时点击率等                                                                                              image.png               历史版本  常规的做法离线训练时将日志表、用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="特征平台调研-网易新闻推荐工程">
+<meta property="og:url" content="https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/index.html">
+<meta property="og:site_name" content="西土城马戏团">
+<meta property="og:description" content="业务特性  信息流推荐，实时性要求高  例如图中的用户实时兴趣特征(受到用户兴趣迁移用户反馈等影响)，文章的实时点击率等                                                                                              image.png               历史版本  常规的做法离线训练时将日志表、用">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677465911187-48126578-f3a4-43da-9e49-685ab8d75c5c.png#averageHue=%23f2f1f1&clientId=u49c4e027-199a-4&from=paste&height=407&id=ud94d58c3&name=image.png&originHeight=814&originWidth=1462&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=254494&status=done&style=none&taskId=u37a4cd24-e286-4ccf-86af-63dc2187006&title=&width=731">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677468239235-fadb6c57-6b0e-4faa-8842-02b80b3dd727.png#averageHue=%23f6f6f6&clientId=u49c4e027-199a-4&from=paste&height=263&id=u1543f2d7&name=image.png&originHeight=526&originWidth=1396&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=96200&status=done&style=none&taskId=ueb4683c9-4061-4bca-9944-ac6124b09df&title=&width=698">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677484614117-d5a832bf-c63b-4398-aa74-4437abe8a966.png#averageHue=%23f4f4f4&clientId=u78acbdef-63e9-4&from=paste&height=327&id=uf8f5fd57&name=image.png&originHeight=654&originWidth=1380&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=104321&status=done&style=none&taskId=u7525f51c-437f-4fb4-ad60-24e38b9c30c&title=&width=690">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677495402964-e0e679ac-dab1-47fa-aef9-1df5f52fb8c7.png#averageHue=%23f7f7f6&clientId=u78acbdef-63e9-4&from=paste&height=413&id=u68697ebc&name=image.png&originHeight=826&originWidth=1604&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=192906&status=done&style=none&taskId=u2ca0a544-9be4-41ff-a923-75d2e6d6710&title=&width=802">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677550344406-b4eb8c0f-e5fb-4c53-8016-4f88d547742c.png#averageHue=%23f6f7f6&clientId=u78acbdef-63e9-4&from=paste&height=412&id=u7f6b5331&name=image.png&originHeight=824&originWidth=1556&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=294972&status=done&style=none&taskId=ufba05f31-8f7b-4b58-a766-49ca9514f81&title=&width=778">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677550773491-38efecbd-b466-4ad6-9042-5fdf8438713c.png#averageHue=%23f2f2f2&clientId=u78acbdef-63e9-4&from=paste&height=422&id=u0112ccdc&name=image.png&originHeight=844&originWidth=1570&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=268424&status=done&style=none&taskId=ud64b8100-121a-4a89-935a-7235f3a56a2&title=&width=785">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677554481601-914315e6-dbfa-40f5-8f76-04213ee31f94.png#averageHue=%23c8d2db&clientId=u78acbdef-63e9-4&from=paste&height=532&id=u898f1bfd&name=image.png&originHeight=1064&originWidth=1562&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=596921&status=done&style=none&taskId=u41ccb042-6377-4d22-814f-cfa504e43fe&title=&width=781">
+<meta property="article:published_time" content="2023-02-28T03:38:18.000Z">
+<meta property="article:modified_time" content="2023-02-28T03:50:17.402Z">
+<meta property="article:author" content="xiaoysec">
+<meta property="article:tag" content="推荐系统">
+<meta property="article:tag" content="特征平台">
+<meta property="article:tag" content="系统设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677465911187-48126578-f3a4-43da-9e49-685ab8d75c5c.png#averageHue=%23f2f1f1&clientId=u49c4e027-199a-4&from=paste&height=407&id=ud94d58c3&name=image.png&originHeight=814&originWidth=1462&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=254494&status=done&style=none&taskId=u37a4cd24-e286-4ccf-86af-63dc2187006&title=&width=731">
+    
+        <link rel="alternate" type="application/atom+xml" title="西土城马戏团" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.2">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://xiaoysec.github.io/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">xiaoysec</h5>
+          <a href="mailto:xiaoysec@163.com" title="xiaoysec@163.com" class="mail">xiaoysec@163.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                Home
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about" target="_blank" >
+                <i class="icon icon-lg icon-user"></i>
+                About
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/xiaoysec" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">特征平台调研-网易新闻推荐工程</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">特征平台调研-网易新闻推荐工程</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2023-02-28T03:38:18.000Z" itemprop="datePublished" class="page-time">
+  2023-02-28
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#业务特性"><span class="post-toc-number">1.</span> <span class="post-toc-text">业务特性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#历史版本"><span class="post-toc-number">2.</span> <span class="post-toc-text">历史版本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#设计方案"><span class="post-toc-number">3.</span> <span class="post-toc-text">设计方案</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#样本生成逻辑"><span class="post-toc-number">4.</span> <span class="post-toc-text">样本生成逻辑</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#特征算子"><span class="post-toc-number">5.</span> <span class="post-toc-text">特征算子</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#参考资料"><span class="post-toc-number">6.</span> <span class="post-toc-text">参考资料</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-特征平台调研-网易新闻推荐工程"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">特征平台调研-网易新闻推荐工程</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2023-02-28 11:38:18" datetime="2023-02-28T03:38:18.000Z"  itemprop="datePublished">2023-02-28</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/">推荐系统</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="业务特性"><a href="#业务特性" class="headerlink" title="业务特性"></a>业务特性</h3><p>  信息流推荐，实时性要求高<br>  例如图中的用户实时兴趣特征(受到用户兴趣迁移用户反馈等影响)，文章的实时点击率等</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677465911187-48126578-f3a4-43da-9e49-685ab8d75c5c.png#averageHue=%23f2f1f1&clientId=u49c4e027-199a-4&from=paste&height=407&id=ud94d58c3&name=image.png&originHeight=814&originWidth=1462&originalType=binary∶=2&rotation=0&showTitle=false&size=254494&status=done&style=none&taskId=u37a4cd24-e286-4ccf-86af-63dc2187006&title=&width=731" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+
+<h3 id="历史版本"><a href="#历史版本" class="headerlink" title="历史版本"></a>历史版本</h3><p>  常规的做法离线训练时将日志表、用户表、文章表等离线表 join 后产生样本，在线服务有专门的服务加速从数据表中获取内容的过程。<br>  注：这种方式和我们目前在用的方式差不多，离线训练使用 hive 表关联，并将特征分组后存储到 redis 中，在线服务时直接从 redis 中获取特征，这种方式基本不涉及到用户或物料维度的实时特征信息<br>  网易新闻历史版本的基本思路是： 线上服务实时生产特征，离线样本生成使用线上实时落盘的特征</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677468239235-fadb6c57-6b0e-4faa-8842-02b80b3dd727.png#averageHue=%23f6f6f6&clientId=u49c4e027-199a-4&from=paste&height=263&id=u1543f2d7&name=image.png&originHeight=526&originWidth=1396&originalType=binary∶=2&rotation=0&showTitle=false&size=96200&status=done&style=none&taskId=ueb4683c9-4061-4bca-9944-ac6124b09df&title=&width=698" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+<p>流程：</p>
+<ul>
+<li>在线服务阶段在精排之前，获取或计算用户侧、文章侧的各个维度原始属性并人工特征工程以得到结构化、规范化的特征数据，以此特征进行预测</li>
+<li>完成精排后，将此刻预估时的特征数据落盘</li>
+<li>离线训练阶段，使用落盘的特征数据，以用户 ID 和文章 ID 为 key，与曝光日志、点击日志、其他行为日志关联标签，形成带有标签的特征样本</li>
+</ul>
+<p>利弊：</p>
+<ul>
+<li>可以保证线上和训练的特征一致性，避免特征穿越问题。</li>
+<li>灵活性差，且对存储有较高的要求</li>
+</ul>
+<h3 id="设计方案"><a href="#设计方案" class="headerlink" title="设计方案"></a>设计方案</h3><ol>
+<li><p>优化灵活性</p>
+<ul>
+<li>抽象出特征算子 比如bucket、cross、cosine，基于json文件做特征计算管理，线上和线下基于同样的特征算子包做计算</li>
+<li>将特征区分为原始特征和特征，比如用户年龄 27 岁为物料，而年龄 3 号桶则为特征，日志落盘的是物料数据，在线和离线使用的是同一套特征算子所以可以保证一致性。<br>注： 我理解这边主要是落盘元数据，可以通过物料计算的特征数据都不需要落盘，这样一方面可以保证性能，一方面可以减少存储的需求。</li>
+</ul>
+<p>基本流程如下图所示<br> <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677484614117-d5a832bf-c63b-4398-aa74-4437abe8a966.png#averageHue=%23f4f4f4&clientId=u78acbdef-63e9-4&from=paste&height=327&id=uf8f5fd57&name=image.png&originHeight=654&originWidth=1380&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=104321&status=done&style=none&taskId=u7525f51c-437f-4fb4-ad60-24e38b9c30c&title=&width=690" alt="image.png"><br>算法同学主要的工作集中在特征工程和模型训练上，算法人员可以根据提供的基础工具和基础特征算子书写特征配置</p>
+</li>
+<li><p>优化业务复用性<br>  每个子业务都需要构架上述的服务, 为了解决业务复用问题，引入物料服务和物料缓存网关的概念</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677495402964-e0e679ac-dab1-47fa-aef9-1df5f52fb8c7.png#averageHue=%23f7f7f6&clientId=u78acbdef-63e9-4&from=paste&height=413&id=u68697ebc&name=image.png&originHeight=826&originWidth=1604&originalType=binary∶=2&rotation=0&showTitle=false&size=192906&status=done&style=none&taskId=u2ca0a544-9be4-41ff-a923-75d2e6d6710&title=&width=802" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure></li>
+</ol>
+<ul>
+<li><p>离线环节：各个业务依然是独自落原始物料，经过特征算子计算生成样本，没有改变；</p>
+</li>
+<li><p>在线环节：pCTR 服务不再直接和物料服务通信，而是借助物料缓存网关。物料缓存网关的核心功能则为缓存和路由，其根据特征名称路由到不同的物料服务来计算</p>
+<p>注：我理解这边就是由业务场景构建属于业务自己的物料库，即对不同业务的物料信息做隔离，由物料缓存网关做路由</p>
+</li>
+</ul>
+<ol start="3">
+<li>优化性能<br>为了灵活性，我们引入了特征算子包，在离线和线上做实时的计算。然而实时计算就意味着 RT 增加，随着进入 pCTR 排序服务的候选数目的扩大，RT 的压力越来越大（需要在线做特征计算，CPU 密集型操作,召回数量增加直接导致 RT 升高)<br>优化方向 这边可以学习下问题分析的思路<ul>
+<li>算子库实现的性能优化</li>
+<li>pCTR 服务端的性能优化</li>
+<li>特征平台侧的优化<br>降低 RT 的常见思路为用空间换时间，给定特征配置文件，同个用户的不同请求中，类似年龄性别等人口属性和用户的长期兴趣是固定的，没有必要每次都计算。将某些类型的特征提前计算好并存储到缓存中，线上请求直接拉取对应的特征即可<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677550344406-b4eb8c0f-e5fb-4c53-8016-4f88d547742c.png#averageHue=%23f6f7f6&clientId=u78acbdef-63e9-4&from=paste&height=412&id=u7f6b5331&name=image.png&originHeight=824&originWidth=1556&originalType=binary∶=2&rotation=0&showTitle=false&size=294972&status=done&style=none&taskId=ufba05f31-8f7b-4b58-a766-49ca9514f81&title=&width=778" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+  物料和特征生产：触发物料服务计算有消息队列和接口调用两种方式，物料服务除了计算物料之外，还会将具体的特征也计算完成，并且将结果分别缓存<br>  线上服务的获取：线上服务的获取只是会区分物料和特征。针对精排服务而言，其直接获取到特征粒度，物料缓存服务网关需要根据其对应的特征配置拉取具体的特征。而在落物料日志的过程中，则获取物料粒度，这样在性能优化的同时依旧保持了灵活性</li>
+</ul>
+</li>
+</ol>
+<h3 id="样本生成逻辑"><a href="#样本生成逻辑" class="headerlink" title="样本生成逻辑"></a>样本生成逻辑</h3><p>  将样本生成的过程拆分为两个环节：join 环节、sample 环节。<br>join 环节的核心工作为融合信息，融合如物料信息、推荐点击信息、用户互动信息等等，同时我们将业务中常见的标签推理的方式封装为函数，外面直接设置相关的参数即可得到实际的标签，比如加上阅读时长、阅读完成度类似的限制。<br>sample 环节的工作为特征工程，除了基于配置的特征工程之外，我们将样本权重计算、样本过滤逻辑、样本采样逻辑也做了函数式的封装，并对外暴露参数使其可配置<br>  样本生成逻辑是基于 flink 任务来完成的，flink 任务会定期读取数据表，获取需要计算的样本详情，生成新的样本</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677550773491-38efecbd-b466-4ad6-9042-5fdf8438713c.png#averageHue=%23f2f2f2&clientId=u78acbdef-63e9-4&from=paste&height=422&id=u0112ccdc&name=image.png&originHeight=844&originWidth=1570&originalType=binary∶=2&rotation=0&showTitle=false&size=268424&status=done&style=none&taskId=ud64b8100-121a-4a89-935a-7235f3a56a2&title=&width=785" alt="image.png" title="">
+                </div>
+                <div class="image-caption">image.png</div>
+            </figure>
+
+<h3 id="特征算子"><a href="#特征算子" class="headerlink" title="特征算子"></a>特征算子</h3><p>   一套基于特征配置的特征算子库，以解决现有特征工程方法中存在的特征工程策略可读性差、通用性差、特征调整迭代周期长、计算冗余度高等问题，能够在灵活性、高效性、复用性上有很好的表现能力。<br>  对训练样本需要的特征进行汇总分析，并对依赖的原始数据进行梳理，整理出由原始数据到特征样本之间所有的变换、组合关系，我们称之为特征算子</p>
+<ul>
+<li><p>特征配置设计</p>
+<p>json格式，支持嵌套。例如{“feat”: “a &#x3D; op(b)”, “param_A”: “val_A”, “paramB”: “val_B”}，表示使用op对原始数据b变换处理得到特征a，变换过程中需要两个参数</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2023/png/21378486/1677554481601-914315e6-dbfa-40f5-8f76-04213ee31f94.png#averageHue=%23c8d2db&clientId=u78acbdef-63e9-4&from=paste&height=532&id=u898f1bfd&name=image.png&originHeight=1064&originWidth=1562&originalType=binary%E2%88%B6=2&rotation=0&showTitle=false&size=596921&status=done&style=none&taskId=u41ccb042-6377-4d22-814f-cfa504e43fe&title=&width=781" alt="image.png"></p>
+</li>
+</ul>
+<h3 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h3><p>[1] <a href="https://www.6aiq.com/article/1647651329252" target="_blank" rel="noopener">网易新闻推荐工程优化 - 特征平台篇 - AIQ</a><br>[2] <a href="https://www.6aiq.com/article/1648079760819" target="_blank" rel="noopener">网易新闻推荐工程优化 - 特征算子篇 - AIQ</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2023-02-28T03:50:17.402Z" itemprop="dateUpdated">2023-02-28 11:50:17</time>
+</span><br>
+
+
+        
+        这里可以写作者留言，标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/" target="_blank" rel="external">https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://xiaoysec.github.io">
+            <img src="/img/avatar.jpg" alt="xiaoysec">
+            xiaoysec
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F/" rel="tag">推荐系统</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0/" rel="tag">特征平台</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/&title=《特征平台调研-网易新闻推荐工程》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/&title=《特征平台调研-网易新闻推荐工程》 — 西土城马戏团&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《特征平台调研-网易新闻推荐工程》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/&via=https://xiaoysec.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2023/02/20/%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B%E6%9E%B6%E6%9E%84%E6%96%B9%E6%A1%88%E8%B0%83%E7%A0%94/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">推荐工程架构方案调研</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+    <!-- Valine Comments -->
+    <div class="comments vcomment" id="comments"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
+    <!-- Valine Comments script -->
+    <script>
+        var GUEST_INFO = ['nick','mail','link'];
+        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
+          return GUEST_INFO.indexOf(item) > -1
+        });
+        new Valine({
+            el: '#comments',
+            notify: 'true' == 'true',
+            verify: 'false' == 'true',
+            appId: "JV9OEqq8eybOt1zwnuJfUskP-9Nh9j0Va",
+            appKey: "ZHH0fZUDA2mN08nH1JN6jua4",
+            avatar: "mm",
+            placeholder: "快来评论吧~",
+            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
+            pageSize: "10"
+        })
+    </script>
+    <!-- Valine Comments end -->
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢大爷~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>xiaoysec &copy; 2023</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/&title=《特征平台调研-网易新闻推荐工程》 — 西土城马戏团&pic=https://xiaoysec.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/&title=《特征平台调研-网易新闻推荐工程》 — 西土城马戏团&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《特征平台调研-网易新闻推荐工程》 — 西土城马戏团&url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/&via=https://xiaoysec.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://xiaoysec.github.io/2023/02/28/%E7%89%B9%E5%BE%81%E5%B9%B3%E5%8F%B0%E8%B0%83%E7%A0%94-%E7%BD%91%E6%98%93%E6%96%B0%E9%97%BB%E6%8E%A8%E8%8D%90%E5%B7%A5%E7%A8%8B/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAAE+CAAAAAAxUyPsAAAFTElEQVR42u3awY4iORAE0P7/n969jtQLREQWc9nHqUUXZfsVEulI//zEr3/+eP35zu9rfl//+8r393/1qVejv59Vcn0+z/GFDx8+fPjwBVNPpvV+ou+nmIz76uElYyVze//lSOaGDx8+fPjwbXzbj32+jLYcaeG2B5av6OX7+PDhw4cP31/k27bi7ftJsZL899noAR8+fPjw4fs2X052X3b+OPM4oI0z8OHDhw8fvu/xJWF9fk0bE2wb+0vb4KlGAj58+PDhw9fytVP5P/z98AsfPnz48OELfp63mCA/cJaUF3k7/KkWfqGBDx8+fPjwLRo/G9lW+lyCgHphZTshb9jjw4cPHz58G19elLSgScHRHilrG/BPtd5frh0fPnz48OEr+R6oesoSoW3G5yVLe8AuDxrqZjk+fPjw4cMXjHgPtduH0TYA2ofXllA5HD58+PDhw3fhywnyrXVSuOSTzhfcjpU35l8K4MOHDx8+fDFfvrFvJ7QFCm1gsR1EyyOMD/PBhw8fPnz4Sr58wXkckEfeLVkeOuSjt0VbLoMPHz58+PC9emdrJ7eFyOXvbT73aD76GuHDhw8fPnwlX7sL3jbV25K2Fn4exLc13Rgf4MOHDx8+fG+D+7ZQuDSnt6jiEtbnhVHxFcGHDx8+fPiCdSW3bmP3e0v7UnndsYrIAB8+fPjw4Sv58nC8PcS2lQ7tnfP5bOVUpIEPHz58+PDFGm3Z0U5lO0Z2iTOScmeL9Yv+Az58+PDhw1c2wu8d9e2AVx4HfOM++cPDhw8fPnz4Nr57WL9N4lLutMXKvfB6iYgPHz58+PBNfJd6J7+mBWqDhiSsv+z6/2M++PDhw4cPX8n31LZ8O/jVjvtsBNCOWycu+PDhw4cP39u0efvZ3qKE/Fhbe7dL87sOFPDhw4cPH74pi77E4u1Wv22rt4+qLZ62sT40y/Hhw4cPH744rL8ULklrvJ3uFjFcCrK8OYEPHz58+PA9y3cPzS9b9PZ1KWW2sfDhw4cPH76WL/lRT4qAeshyrLzA2pri293w4cOHDx++li8/RtYexb60tJMSpw0y2i9BNGd8+PDhw4dvmfNXypf8+jw6T/7b3icvVvDhw4cPH76n+PLIvi078iNi7YK3EfM757PFhw8fPnz48tlu0cB9015vyM8t/GdLNHz48OHDh+/Ct22888VvEfwFog0dttIKHz58+PDhu/NtU2wb7fkxtS2mz8P3ZF0v74wPHz58+PCVfElR8lSUcA8FLq2Ce9wQtcnx4cOHDx++M9+zBUG+mLwYyjf/G/SH2eLDhw8fPnyH2SZFzCVqb6OBdlYtShttfBgXHz58+PDhm3bQ2+Y8L2jyw2F5YbQVMUlw0JZZ+PDhw4cPX1KmtMF6TtmWKVscsBUcW/mFDx8+fPjw3fm2yDt/APlD2kL/ttm/PewPR9Pw4cOHDx++uBrJc4XkZz5vPH9jefcIPi/d8OHDhw8fvpyv3ULn3HmbfLtyK2LaVUd1Hz58+PDhw3eIDPLjYnk7/IFY/FCy3E8QvJTBhw8fPnz4znx5HJBMNF/qpVXfLjt/wB/ujA8fPnz48O2/4D9b0XApCNo75zFB2yRog3t8+PDhw4fvwtcWK+0htrY9n8/hqaB/i/jx4cOHDx++C18RUgfLziP+sZI6NOzbCu7DY8OHDx8+fPi+zHdpb+flyCV0aHGTVsTLUfDhw4cPH74v82275jwu30qfrVV/iTbw4cOHDx++C98W1ucBd97kzhsDeZGRf6pGxIcPHz58+PZkO/rY5WhaDv0UQd4gH8N6fPjw4cOHL+X7F1YXtKx/+2IwAAAAAElFTkSuQmCC" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
